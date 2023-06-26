@@ -12,9 +12,9 @@ async function buildTables() {
     client.connect();
 
     await client.query(`
-    DROP TABLES IF EXISTS users;
-    DROP TABLES IF EXISTS games;
-    DROP TABLES IF EXISTS cart;
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS games;
+    DROP TABLE IF EXISTS cart;
     `);
 
 
