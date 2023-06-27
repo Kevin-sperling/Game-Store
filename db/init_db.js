@@ -25,14 +25,23 @@ async function buildTables() {
     );
 
     CREATE TABLE games (
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(255) UNIQUE NOT NULL,
-      description TEXT NOT NULL
+      id INT PRIMARY KEY,
+      title VARCHAR(255),
+      genre VARCHAR(100),
+      release_date DATE,
+      price DECIMAL(10, 2),
+      platform VARCHAR(100)
     );
 
     CREATE TABLE cart (
-      id SERIAL PRIMARY KEY,
-      "gameId" INTERGER REFERENCES game(id)
+      id INT PRIMARY KEY,
+      user_id INT,
+      product_id INT,
+      quantity INT,
+      price DECIMAL(10, 2),
+      created_at TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (product_id) REFERENCES games(id)
     );
 
     
