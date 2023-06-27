@@ -4,6 +4,7 @@ const {
   // for example, User
 } = require('./');
 
+
 async function buildTables() {
   try {
     client.connect();

@@ -1,4 +1,14 @@
-export { default as App } from './App';
+const express = require ('express')
+const app = express()
+const port = 5000
+
+app.get('/', (req, res) => {res.send('Hello World!')
+})
+// graceshopper listening in port ${port}`)
+
+app.listen(port, () => {
+    console.log('')
+})
 export const fetchUserData = async (token) => {
     try {
       const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/users/me', {
@@ -26,7 +36,7 @@ export const fetchUserData = async (token) => {
         return result
       })
     } catch (error) {
-      console.log("Trouble gathering routines that feature activity", error)
+      console.log("Trouble gathering games selected", error)
     };
   };
   
@@ -59,10 +69,10 @@ export const fetchUserData = async (token) => {
       console.log(result);
     })
     .catch(console.error)
-  };
+  
   
   export const deleteUserRoutine = async (token, routineId) => {
-    await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${routineId}`, {
+    await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${gameId}`, {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
