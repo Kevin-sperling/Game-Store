@@ -35,14 +35,12 @@ async function buildTables() {
     );
 
     CREATE TABLE cart (
-      id INT PRIMARY KEY,
-      user_id INT,
-      product_id INT,
+      id SERIAL PRIMARY KEY,
+      user_id INT REFERENCES users(id),
+      product_id INT REFERENCES games(id),
       quantity INT,
       price DECIMAL(10, 2),
-      created_at TIMESTAMP,
-      FOREIGN KEY (user_id) REFERENCES users(id),
-      FOREIGN KEY (product_id) REFERENCES games(id)
+      created_at TIMESTAMP
     );
 
     
