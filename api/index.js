@@ -1,4 +1,4 @@
-const apiRouter = require('express').Router();
+const router = require('express').Router();
 
 
 const jwt = require('jsonwebtoken');
@@ -8,7 +8,7 @@ const { getUserById } = require('../db/users')
 
 
 
-apiRouter.use(async (req, res, next) => {
+router.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
 
@@ -36,13 +36,13 @@ apiRouter.use(async (req, res, next) => {
   }
 });
 
-apiRouter.get('/', (req, res, next) => {
+router.get('/', (req, res, next) => {
   res.send({
     message: 'API is under construction!',
   });
 });
 
-apiRouter.get('/health', (req, res, next) => {
+router.get('/health', (req, res, next) => {
   res.send({
     healthy: true,
   });
@@ -51,7 +51,7 @@ apiRouter.get('/health', (req, res, next) => {
 //////////// moved to api/users.js //////////
 
 // // place your routers here
-// apiRouter.post('/login', async (req, res, next) => {
+// router.post('/login', async (req, res, next) => {
 
 //   const { userName, password } = req.body;
 
@@ -96,4 +96,4 @@ router.use('/cart', cartRouter);
 
 
 
-module.exports = apiRouter;
+module.exports = router;
