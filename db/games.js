@@ -33,6 +33,21 @@ async function getAllGames() {
     }
 }
 
+async function getGamesByGenre(genre) {
+    try {
+        const { rows } = await client.query(`
+            SELECT * 
+            FROM games 
+            WHERE genre = $1
+            `, [genre]);
+
+        return rows;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 async function getGameById(id) {
     try {
         const { rows: [game] } = await client.query(`
@@ -52,6 +67,7 @@ async function getGameById(id) {
 module.exports = {
     createGame,
     getAllGames,
-    getGameById
+    getGamesByGenre,
+    getGameById,
 
 }
