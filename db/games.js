@@ -34,6 +34,7 @@ async function getAllGames() {
 }
 
 async function getGamesByGenre(genre) {
+    //this wont work with the way tables are currently setup//
     try {
         const { rows } = await client.query(`
             SELECT * 

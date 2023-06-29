@@ -12,7 +12,11 @@ gamesRouter.get('/', async (req, res, next) => {
     }
 });
 
+
 gamesRouter.get('/:genre', async (req, res, next) => {
+
+    //this wont work with the way tables are currently setup//
+
     const { genre } = req.params
 
     try {
