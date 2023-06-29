@@ -20,7 +20,11 @@ const App = () => {
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
+
   }, []);
+
+
+
 
   return (
     <div className="app-container">
