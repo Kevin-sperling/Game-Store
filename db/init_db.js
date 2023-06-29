@@ -12,9 +12,9 @@ async function buildTables() {
     client.connect();
 
     await client.query(`
-    DROP TABLES IF EXISTS users;
-    DROP TABLES IF EXISTS games;
-    DROP TABLES IF EXISTS cart;
+    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS games;
+    DROP TABLE IF EXISTS users;
     `);
 
 
@@ -28,8 +28,8 @@ async function buildTables() {
     );
 
     CREATE TABLE games (
-      id INT PRIMARY KEY,
-      title VARCHAR(255),
+      id SERIAL PRIMARY KEY,
+      title VARCHAR(255) UNIQUE NOT NULL,
       genre VARCHAR(100),
       release_date DATE,
       price DECIMAL(10, 2),

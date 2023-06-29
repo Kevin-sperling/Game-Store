@@ -1,13 +1,13 @@
 const client = require("./client");
 
-async function createGame({ title, genre, release_date, price, platform }) {
+async function createGame({ title, genre, release_date, price, image_path, platform }) {
     try {
         const { rows: [game] } = await client.query(`
-        INSERT INTO games(title, genre, release_date, price, platform)
-        VALUES($1, $2, $3, $4, $5)
-        ON CONFLICT (name) DO NOTHING
+        INSERT INTO games(title, genre, release_date, price, image_path, platform)
+        VALUES($1, $2, $3, $4, $5, $6)
+        ON CONFLICT (title) DO NOTHING
         RETURNING *;
-        ` [title, genre, release_date, price, platform]);
+        `, [title, genre, release_date, price, image_path, platform]);
 
         return game;
 
