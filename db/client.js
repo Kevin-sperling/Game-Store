@@ -2,7 +2,7 @@
 const { Client } = require('pg');
 
 // change the DB_NAME string to whatever your group decides on
-const DB_NAME = 'graceshopper-dev';
+const DB_NAME = 'graceshopper';
 
 //"host=localhost port=5432 dbname=graceshopper user=postgres 
 const DB_URL = `postgres://postgres:123@localhost:5432/${DB_NAME}`
