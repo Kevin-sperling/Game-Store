@@ -21,6 +21,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
+// not able to register through thunder client
 usersRouter.post("/register", async (req, res, next) => {
   const { userName, password, email } = req.body;
 
@@ -39,7 +40,7 @@ usersRouter.post("/register", async (req, res, next) => {
         name: "userExistsError",
       });
     } else {
-      const user = await insertUser(userName, password);
+      const user = await insertUser(userName, password, email);
 
       const token = jwt.sign(
         {

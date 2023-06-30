@@ -13,7 +13,7 @@ async function getLoginDetails(userName, password, email) {
   return user;
 }
 
-async function insertUser(userName, password) {
+async function insertUser(userName, password, email) {
   await createUser(userName);
 }
 
