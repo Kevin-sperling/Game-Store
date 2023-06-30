@@ -14,7 +14,7 @@ async function createGame({ title, genre, release_date, price, image_path, platf
     } catch (err) {
         console.log(err);
     }
-}gi
+}
 
 async function getAllGames() {
     try {

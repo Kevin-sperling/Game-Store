@@ -3,31 +3,36 @@ import { useNavigate } from "react-router";
 import { fetchUserData } from "../util";
 import "./registerlogin.css";
 
-const Register = ({setToken, setIsLoggedIn, isLoggedIn, setCurrentUser}) => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [showCredentialsError, setShowCredentialsError] = useState(false);
-    const [registerError, setRegisterError] = useState("");
+const Register = ({ setToken, setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showCredentialsError, setShowCredentialsError] = useState(false);
+  const [registerError, setRegisterError] = useState("");
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-      if (isLoggedIn) navigate("/account")
-    }, []);
+  useEffect(() => {
+    if (isLoggedIn) navigate("/account");
+  }, []);
 
-    const createAccount = async (event) => {
-      event.preventDefault();
-      const response = await fetch("https://fitnesstrac-kr.herokuapp.com/api/users/register", {
+  const createAccount = async (event) => {
+    event.preventDefault();
+    const response = await fetch(
+      "https://fitnesstrac-kr.herokuapp.com/api/users/register",
+      {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            username: username,
-            password: password,
-        })
-      })
+          username: username,
+          password: password,
+          email: email,
+        }),
+      }
+    );
     if (response.ok) {
       console.log(response);
       const result = await response.json();
@@ -40,26 +45,68 @@ const Register = ({setToken, setIsLoggedIn, isLoggedIn, setCurrentUser}) => {
       navigate("/account");
     } else {
       console.error;
-      const errorMessage = "login" && "Username already taken."
+      const errorMessage = "login" && "Username already taken.";
       setRegisterError(errorMessage);
       setShowCredentialsError(true);
     }
-  }
+  };
 
-    return <>
-    <h1 className="pageName">REGISTER</h1>
+  return (
+    <>
+      <h1 className="pageName">REGISTER</h1>
       <form onSubmit={createAccount} className="registerLoginForm">
-        <input type="text" value={username} id="username" placeholder="username" minLength="8" onChange={
-          (event) => {setUsername(event.target.value)}} required/>
-        <input type="password" value={password} id="password" placeholder="password" minLength="8" onChange={
-          (event) => {setPassword(event.target.value)}} required/>
-        <input type="password" value={confirmPassword} id="confirm_password" name= "confirm_password" placeholder="confirm password" onChange={
-          (event) => {setConfirmPassword(event.target.value)}} required/>
+        <input
+          type="text"
+          value={username}
+          id="username"
+          placeholder="username"
+          minLength="8"
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+          required
+        />
+        <input
+          type="text"
+          value={email}
+          id="email"
+          placeholder="email"
+          minLength="8"
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          id="password"
+          placeholder="password"
+          minLength="8"
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
+          required
+        />
+        <input
+          type="password"
+          value={confirmPassword}
+          id="confirm_password"
+          name="confirm_password"
+          placeholder="confirm password"
+          onChange={(event) => {
+            setConfirmPassword(event.target.value);
+          }}
+          required
+        />
         {password !== confirmPassword && <div>Passwords do not match</div>}
-        { showCredentialsError ? <div className="error">{registerError}</div> : null }
+        {showCredentialsError ? (
+          <div className="error">{registerError}</div>
+        ) : null}
         <button type="submit">Create Account</button>
       </form>
     </>
-}
+  );
+};
 
-export default register;
+export default Register;

@@ -1,27 +1,20 @@
-
-const {getUserByName, createUser} = require("../../db/users")
+const { getUserByName, createUser } = require("../../db/users");
 const bcrypt = require("bcrypt");
 
-async function getLoginDetails(userName, password){
+async function getLoginDetails(userName, password, email) {
+  const user = await getUserByName(userName);
 
-    const user = await getUserByName(userName);
+  if (!user) throw new Error("User not found");
 
-    if(!user) throw new Error("User not found");
+  const passwordMatch = await bcrypt.compare(password, user.password);
 
-    
-const passwordMatch = await bcrypt.compare(password, user.password);
+  if (!passwordMatch) throw new Error("Username or password does not match");
 
-if(!passwordMatch) throw new Error("Username or password does not match");
-
-return user
-
+  return user;
 }
 
-
-async function insertUser(userName, password){
-    await createUser(userName);
+async function insertUser(userName, password, email) {
+  await createUser(userName);
 }
 
-
-
-module.exports  = {insertUser, getLoginDetails}
+module.exports = { insertUser, getLoginDetails };
