@@ -211,23 +211,6 @@ async function populateInitialData() {
       throw error;
     }
 
-    try {
-      const usersToCreate = [
-        { username: "albert", password: "bertie99", email: "albert@home.com" },
-        { username: "sandra", password: "sandra123", email: "sandra@home.com" },
-        { username: "glamgal", password: "glamgal123", email: "glamgal@home.com" },
-      ]
-      const users = await Promise.all(usersToCreate.map(createUser))
-
-      console.log("Users created:")
-      console.log(users)
-      console.log("Finished creating users!")
-    } catch (error) {
-      console.error("Error creating users!")
-      throw error
-    }
-
-
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
