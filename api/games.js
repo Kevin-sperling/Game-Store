@@ -1,17 +1,25 @@
 const express = require("express");
+
 const { getAllGames, getGamesByGenre, createGame, updateGame, deleteGame } = require("../db/games");
 const { requireAdmin } = require("./utils");
+
 const gamesRouter = express.Router();
 
-gamesRouter.get('/', async (req, res, next) => {
-    try {
-        const games = await getAllGames();
+// GET /api/games
+gamesRouter.get("/", async (req, res, next) => {
+  try {
+    const games = await getAllGames();
 
-        res.send(games)
-    } catch (error) {
-        next(error)
-    }
+    res.send(games);
+  } catch (error) {
+    next(error);
+  }
 });
+
+
+// GET /api/games/:genre
+gamesRouter.get("/:genre", async (req, res, next) => {
+  //this wont work with the way tables are currently setup//
 
 gamesRouter.post('/', async (req, res, next) => {
 
@@ -85,22 +93,17 @@ gamesRouter.delete('/:id', requireAdmin, async (req, res, next) => {
 
 })
 
-gamesRouter.get('/:genre', async (req, res, next) => {
 
-    //this wont work with the way tables are currently setup//
+  const { genre } = req.params;
 
-    const { genre } = req.params
+  try {
+    const games = await getGamesByGenre(genre);
 
-    try {
-        const games = await getGamesByGenre(genre)
-
-        res.send(games);
-
-    } catch (error) {
-        next(error)
-    }
-
-})
+    res.send(games);
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 

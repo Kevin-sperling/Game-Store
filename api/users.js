@@ -5,15 +5,15 @@ const { getLoginDetails } = require("./services/userService");
 const { getUserByName } = require("../db/users");
 
 usersRouter.post("/login", async (req, res, next) => {
-  const { userName, password } = req.body;
+  const { username, password } = req.body;
 
-  if (!userName || !password)
+  if (!username || !password)
     return res
       .status(400)
       .json({ error: "Username and password are required" });
 
   try {
-    const user = await getLoginDetails(userName, password);
+    const user = await getLoginDetails(username, password);
 
     return res.status(200).json({ user });
   } catch (error) {
@@ -23,29 +23,29 @@ usersRouter.post("/login", async (req, res, next) => {
 
 // not able to register through thunder client
 usersRouter.post("/register", async (req, res, next) => {
-  const { userName, password, email } = req.body;
+  const { username, password, email } = req.body;
 
-  if (!userName || !email || !password)
+  if (!username || !email || !password)
     return res
       .status(400)
       .json({ error: "Username, password, and email are required" });
 
   try {
-    const _user = await getUserByName(userName);
+    const _user = await getUserByName(username);
 
     if (_user) {
       res.send({
         error: "Error",
-        message: `User ${userName} is already taken.`,
+        message: `User ${username} is already taken.`,
         name: "userExistsError",
       });
     } else {
-      const user = await insertUser(userName, password, email);
+      const user = await insertUser(username, password, email);
 
       const token = jwt.sign(
         {
           id: user.id,
-          userName,
+          username,
         },
         process.env.JWT_SECRET,
         {

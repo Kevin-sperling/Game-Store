@@ -61,6 +61,7 @@ async function populateInitialData() {
 
     const gamesToCreate = [
       {
+        id: "1",
         title: "Grand Theft Auto V",
         genres: "Action, Adventure",
         release_date: "2013-09-17",
@@ -71,6 +72,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "2",
         title: "Portal 2",
         genres: "Puzzle, Shooter",
         release_date: "2011-04-18",
@@ -81,6 +83,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "3",
         title: "The Elder Scrolls V: Skyrim",
         genres: "Action, RPG",
         release_date: "2011-11-11",
@@ -91,6 +94,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "4",
         title: "BioShock Infinite",
         genres: "Action, RPG",
         release_date: "2013-03-26",
@@ -101,6 +105,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "5",
         title: "Red Dead Redemption 2",
         genres: "Action, Adventure",
         release_date: "2018-10-26",
@@ -111,6 +116,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "6",
         title: "Borderlands 2",
         genres: "Action, Shooter, RPG",
         release_date: "2012-09-18",
@@ -121,6 +127,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "7",
         title: "Half-Life 2",
         genres: "Action, Shooter",
         release_date: "2004-11-16",
@@ -131,6 +138,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "8",
         title: "Limbo",
         genres: "Action, Shooter",
         release_date: "2010-07-21",
@@ -141,6 +149,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "9",
         title: "God of War 2",
         genres: "Indie, Adventure, Puzzle",
         release_date: "2018-04-20",
@@ -151,6 +160,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "10",
         title: "Destiny 2",
         genres: "Action, Shooter",
         release_date: "2017-09-06",
@@ -161,6 +171,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "11",
         title: "Team Fortress 2",
         genres: "Action, Shooter",
         release_date: "2007-10-10",
@@ -171,6 +182,7 @@ async function populateInitialData() {
       },
 
       {
+        id: "12",
         title: "DOOM",
         genres: "Action, Shooter",
         release_date: "2016-05-13",
