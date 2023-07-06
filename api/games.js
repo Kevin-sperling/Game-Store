@@ -114,7 +114,6 @@ gamesRouter.delete('/:id', requireAdmin, async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
 // POST /api/games
 gamesRouter.post("/", async (req, res, next) => {
   const { title, genre, release_date, price, image_path, platform } = req.body;
@@ -136,15 +135,6 @@ gamesRouter.post("/", async (req, res, next) => {
     next(error);
   }
 });
-
-// DELETE /api/games/:id
-gamesRouter.delete("/:id", async (req, res, next) => {
-  const { id } = req.params;
-
-  try {
-    const deletedGame = await deleteGame(id);
-=======
->>>>>>> 22e33c7e18f3f0886f894f8674d52852564aad95
 
 
 module.exports = gamesRouter;
