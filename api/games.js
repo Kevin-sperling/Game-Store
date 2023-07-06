@@ -1,35 +1,44 @@
 const express = require("express");
-const { getAllGames, getGamesByGenre } = require("../db/games");
+const { getAllGames, getGamesByGenre, deleteGame } = require("../db/games");
 const gamesRouter = express.Router();
 
-gamesRouter.get('/', async (req, res, next) => {
-    try {
-        const games = await getAllGames();
+// GET /api/games
+gamesRouter.get("/", async (req, res, next) => {
+  try {
+    const games = await getAllGames();
 
-        res.send(games)
-    } catch (error) {
-        next(error)
-    }
+    res.send(games);
+  } catch (error) {
+    next(error);
+  }
 });
 
+// GET /api/games/:genre
+gamesRouter.get("/:genre", async (req, res, next) => {
+  //this wont work with the way tables are currently setup//
 
-gamesRouter.get('/:genre', async (req, res, next) => {
+  const { genre } = req.params;
 
-    //this wont work with the way tables are currently setup//
+  try {
+    const games = await getGamesByGenre(genre);
 
-    const { genre } = req.params
+    res.send(games);
+  } catch (error) {
+    next(error);
+  }
+});
 
-    try {
-        const games = await getGamesByGenre(genre)
+// DELETE /api/games/:id
+gamesRouter.delete("/:id", async (req, res, next) => {
+  const { id } = req.params;
 
-        res.send(games);
+  try {
+    const deletedGame = await deleteGame(id);
 
-    } catch (error) {
-        next(error)
-    }
-
-})
-
-
+    res.send(deletedGame);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = gamesRouter;

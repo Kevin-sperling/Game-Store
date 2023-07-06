@@ -44,10 +44,10 @@ async function getUserById(userId) {
   }
 }
 
-async function getUserByName(userName) {
+async function getUserByName(username) {
   const result = await client.query(
     `SELECT password, username FROM users where username = $1 LIMIT 1;`,
-    [userName]
+    [username]
   );
 
   return result.rows[0];
