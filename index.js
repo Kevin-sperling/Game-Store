@@ -29,7 +29,7 @@ server.use((req, res, next) => {
 // bring in the DB connection
 const { client } = require("./db");
 
-// connect to the server
+// use port 4000 unless there exists a preconfigured port
 const PORT = process.env.PORT || 4000;
 
 // define a server handle to close open tcp connection after unit tests have run
