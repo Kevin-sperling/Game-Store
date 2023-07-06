@@ -81,6 +81,7 @@ async function getGameById(id) {
   }
 }
 
+
 async function deleteGame(id) {
   try {
     const {
@@ -94,6 +95,29 @@ async function deleteGame(id) {
       [id]
     );
 
+async function updateGame({ id, ...fields }) {
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${key}" = $${index + 2}`).join(`, `);
+
+    try {
+        const { rows: [game] } = await client.query(`
+        UPDATE games
+        SET ${setString}
+        WHERE id = $1
+        RETURNING *
+        `, [id, ...Object.values(fields)])
+
+        return game;
+    } catch (err) {
+        console.log(err);
+    }
+
+
+}
+
+
+
+
     return game;
   } catch (err) {
     console.log(err);
@@ -101,9 +125,13 @@ async function deleteGame(id) {
 }
 
 module.exports = {
-  createGame,
-  getAllGames,
-  getGamesByGenre,
-  getGameById,
-  deleteGame,
-};
+
+    createGame,
+    getAllGames,
+    getGamesByGenre,
+    getGameById,
+    updateGame,
+    deleteGame,
+
+}
+
