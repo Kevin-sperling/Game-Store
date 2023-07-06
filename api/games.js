@@ -1,8 +1,17 @@
 const express = require("express");
+<<<<<<< HEAD
+const {
+  getAllGames,
+  getGamesByGenre,
+  deleteGame,
+  createGame,
+} = require("../db/games");
+=======
 
 const { getAllGames, getGamesByGenre, createGame, updateGame, deleteGame } = require("../db/games");
 const { requireAdmin } = require("./utils");
 
+>>>>>>> 22e33c7e18f3f0886f894f8674d52852564aad95
 const gamesRouter = express.Router();
 
 // GET /api/games
@@ -105,6 +114,37 @@ gamesRouter.delete('/:id', requireAdmin, async (req, res, next) => {
   }
 });
 
+<<<<<<< HEAD
+// POST /api/games
+gamesRouter.post("/", async (req, res, next) => {
+  const { title, genre, release_date, price, image_path, platform } = req.body;
+
+  const gameData = {};
+
+  try {
+    gameData.title = title;
+    gameData.genre = genre;
+    gameData.release_date = release_date;
+    gameData.price = price;
+    gameData.image_path = image_path;
+    gameData.platform = platform;
+
+    const newGame = await createGame(gameData);
+
+    res.send(newGame);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DELETE /api/games/:id
+gamesRouter.delete("/:id", async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const deletedGame = await deleteGame(id);
+=======
+>>>>>>> 22e33c7e18f3f0886f894f8674d52852564aad95
 
 
 module.exports = gamesRouter;
