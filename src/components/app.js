@@ -7,6 +7,8 @@ import { getAPIHealth } from "../axios-services";
 import Footer from "./footer";
 import HomeContent from "./homecontent";
 import Navbar from "./navbar";
+import Games from "./games"
+import Users from "./users";
 
 import "../style/app.css";
 
@@ -30,7 +32,9 @@ const App = () => {
   return (
     <div className="overflow-hidden">
       <Navbar />
-      <HomeContent />
+      <Users />
+      <Games />
+      {/* <HomeContent /> */}
       <Footer />
     </div>
   );

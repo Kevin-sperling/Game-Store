@@ -53,8 +53,55 @@ async function getUserByName(username) {
   return result.rows[0];
 }
 
+async function getAllUsers() {
+  const { rows } = await client.query(`
+  SELECT *
+  FROM users
+  `);
+
+  return rows;
+}
+
+async function deleteUser(userId) {
+  const { rows: [user] } = await client.query(`
+  DELETE FROM users
+  WHERE id = $1
+  RETURNING *
+  `, [userId]);
+
+  return user;
+}
+
+async function updateUser({ id, ...fields }) {
+
+  const setString = Object.keys(fields).map(
+    (key, index) => `"${key}" = $${index + 2}`).join(`, `);
+
+
+  if (setString.length === 0) {
+    return;
+  }
+
+  try {
+    const { rows: [user] } = await client.query(`
+      UPDATE users
+      SET ${setString}
+      WHERE id = $1
+      RETURNING *;
+    `, [id, ...Object.values(fields)]);
+
+    return user;
+
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createUser,
   getUserById,
   getUserByName,
+  getAllUsers,
+  updateUser,
+  deleteUser
 };

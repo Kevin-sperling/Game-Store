@@ -2,7 +2,7 @@ const express = require("express");
 const usersRouter = express.Router();
 
 const { getLoginDetails } = require("./services/userService");
-const { getUserByName } = require("../db/users");
+const { getUserByName, getAllUsers, updateUser, deleteUser } = require("../db/users");
 
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -65,5 +65,65 @@ usersRouter.post("/register", async (req, res, next) => {
     return res.status(500).json({ error });
   }
 });
+
+usersRouter.get("/", async (req, res, next) => {
+
+
+  try {
+    const users = await getAllUsers()
+
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+});
+
+usersRouter.patch(`/:userId`, async (req, res, next) => {
+  const { userId } = req.params;
+  const { name, password, email, is_admin } = req.body;
+
+  const updateFields = {};
+
+  if (name !== undefined) {
+    updateFields.name = name;
+  }
+
+  if (password !== undefined) {
+    updateFields.password = password;
+  }
+
+  if (email !== undefined) {
+    updateFields.email = email;
+  }
+
+  if (is_admin !== undefined) {
+    updateFields.is_admin = is_admin
+  }
+
+  try {
+
+    const updatedUser = await updateUser({ id: userId, ...updateFields });
+
+    res.send(updatedUser);
+
+  } catch (error) {
+    next(error)
+  }
+
+})
+
+
+usersRouter.delete(`/:userId`, async (req, res, next) => {
+  const { userId } = req.params;
+
+  try {
+
+    const deletedUser = await deleteUser(userId)
+    res.send(deletedUser)
+
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = usersRouter;
