@@ -32,7 +32,6 @@ const App = () => {
   return (
     <div className="app-container">
       <Navbar />
-      <Games />
       <HomeContent />
       <Footer />
     </div>
