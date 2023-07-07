@@ -8,6 +8,8 @@ import Footer from "./footer";
 import HomeContent from "./homecontent";
 import Navbar from "./navbar";
 
+import "../style/app.css";
+
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
 
@@ -26,7 +28,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app-container">
+    <div className="overflow-hidden">
       <Navbar />
       <HomeContent />
       <Footer />

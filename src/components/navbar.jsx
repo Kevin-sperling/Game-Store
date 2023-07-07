@@ -1,6 +1,5 @@
 import React from "react";
 // import Logo from "../Assets/logo.jpg"
-// import "./Navbar.css"
 
 const Navbar = () => {
   const token = window.localStorage.getItem("token");
@@ -8,7 +7,9 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">Gamestahhhp</a>
+        <a className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-4xl">
+          GameStahhhp
+        </a>
       </div>
       <div className="flex-none">
         {token ? (
@@ -67,7 +68,9 @@ const Navbar = () => {
             </ul>
           </div>
         ) : null}
-        <a className="btn btn-ghost normal-case text-xl">Login</a>
+        <a className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base">
+          Login
+        </a>
       </div>
     </div>
   );
