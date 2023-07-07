@@ -81,10 +81,10 @@ gamesRouter.get("/:genre", async (req, res, next) => {
   });
 
   gamesRouter.delete("/:id", requireAdmin, async (req, res, next) => {
-    const { gameId } = req.params;
+    const { id } = req.params;
 
     try {
-      const deletedGame = await deleteGame(gameId);
+      const deletedGame = await deleteGame(id);
 
       res.send(deletedGame);
     } catch (error) {
@@ -104,7 +104,7 @@ gamesRouter.get("/:genre", async (req, res, next) => {
 });
 
 // POST /api/games
-gamesRouter.post("/", async (req, res, next) => {
+gamesRouter.post("/", requireAdmin, async (req, res, next) => {
   const { title, genre, release_date, price, image_path, platform } = req.body;
 
   const gameData = {};
