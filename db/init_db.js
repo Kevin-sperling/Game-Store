@@ -12,9 +12,10 @@ async function buildTables() {
     client.connect();
 
     await client.query(`
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS games;
     DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS games;
+    DROP TABLE IF EXISTS users;
+    
     `);
 
     // drop tables in correct order
@@ -220,14 +221,11 @@ async function populateInitialData() {
           email: "admin@home.com",
           is_admin: "true",
         },
-
       ];
       const users = await Promise.all(usersToCreate.map(createUser));
 
       console.log("Users created:", users);
       console.log("Finished creating users!");
-
-
     } catch (error) {
       console.error("Error creating users!");
       throw error;
