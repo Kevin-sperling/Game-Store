@@ -203,16 +203,19 @@ async function populateInitialData() {
           username: "albert",
           password: "bertie99",
           email: "albert@home.com",
+          is_admin: "false",
         },
         {
           username: "sandra",
           password: "sandra123",
           email: "sandra@home.com",
+          is_admin: "false",
         },
         {
           username: "glamgal",
           password: "glamgal123",
           email: "glamgal@home.com",
+          is_admin: "false",
         },
         {
           username: "admin",
@@ -220,14 +223,11 @@ async function populateInitialData() {
           email: "admin@home.com",
           is_admin: "true",
         },
-
       ];
       const users = await Promise.all(usersToCreate.map(createUser));
 
       console.log("Users created:", users);
       console.log("Finished creating users!");
-
-
     } catch (error) {
       console.error("Error creating users!");
       throw error;
