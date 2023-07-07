@@ -15,7 +15,6 @@ async function buildTables() {
     DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS games;
     DROP TABLE IF EXISTS users;
-    
     `);
 
     // drop tables in correct order
@@ -204,16 +203,19 @@ async function populateInitialData() {
           username: "albert",
           password: "bertie99",
           email: "albert@home.com",
+          is_admin: "false",
         },
         {
           username: "sandra",
           password: "sandra123",
           email: "sandra@home.com",
+          is_admin: "false",
         },
         {
           username: "glamgal",
           password: "glamgal123",
           email: "glamgal@home.com",
+          is_admin: "false",
         },
         {
           username: "admin",
