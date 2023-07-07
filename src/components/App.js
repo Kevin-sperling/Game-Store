@@ -8,6 +8,7 @@ import '../style/App.css';
 import Footer from './footer';
 import HomeContent from './HomeContent';
 import Navbar from './navbar';
+import Games from "./games";
 
 
 
@@ -31,6 +32,7 @@ const App = () => {
   return (
     <div className="app-container">
       <Navbar />
+      <Games />
       <HomeContent />
       <Footer />
     </div>

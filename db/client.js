@@ -14,18 +14,18 @@ let client = undefined;
 if (process.env.CI) {
   client = new Client({
     host: 'localhost',
-    port: 5433,
-    user: 'zemichael',
-    password: '1238!',
+    port: 5432,
+    user: 'postgres',
+    password: '123',
     database: 'postgres',
   });
 } else {
   // local / heroku client config
   client = new Client({
     host: '127.0.0.1',
-    port: 5433,
-    user: 'zemichael',
-    password: '1238!',
+    port: 5432,
+    user: 'postgres',
+    password: '123',
     database: DB_NAME,
     ssl: false,
 
