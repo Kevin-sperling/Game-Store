@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {Routes, Route,} from "react-router-dom";
 import HomePage from "./home";
 import LoginPage from "./login";
 import Register from "./register";
@@ -13,17 +13,19 @@ const App = () => {
     }
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/register" component={(props) => (
+    <Routes>
+     
+        <Route exact path="/" element={<HomePage/>} />
+        <Route exact path="/register" element={<Register/>} />
+        <Route exact path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isUserLoggedIn} setUser={setUser} />} />
+        {/* <Route exact path="/register" element={(props) => (
             <Register {...props} isLoggedIn={isUserLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
-        )} />
-        <Route path="/login" component={(props) => (
+        )} /> */}
+        {/* <Route path="/login" element={(props) => (
             <LoginPage {...props} setIsLoggedIn={setIsLoggedIn}/>
-        )} />
-      </Switch>
-    </Router>
+        )} /> */}
+    
+    </Routes>
   );
 };
 

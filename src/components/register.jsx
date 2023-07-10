@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { BASE_URL } from ".";
 
 const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
@@ -10,10 +10,10 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [showCredentialsError, setShowCredentialsError] = useState(false);
   const [registerError, setRegisterError] = useState("");
 
-  const history = useHistory();
+  const navigate = useNavigate()
 
   useEffect(() => {
-    if (isLoggedIn) history.push("/");
+    if (isLoggedIn) navigate('/');
   }, []);
 
   const createAccount = async (event) => {
@@ -36,10 +36,13 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
       console.log(response);
       const result = await response.json();
       console.log(result);
-      const token = result.token;
-      window.localStorage.setItem("token", token);
-      setIsLoggedIn(true);
-      history.push('/login')
+      // const token = result.token;
+      // window.localStorage.setItem("token", token);
+      // setIsLoggedIn(true);
+      setTimeout(() => {
+        window.location.pathname = '/login'
+      }, 300);
+
     } else {
       console.error;
       const errorMessage = "login" && "Username already taken.";

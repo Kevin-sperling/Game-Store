@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "./index.js";
 
 const Login = (props) => {
-  const history = useHistory();
+
   const { isLoggedIn, setIsLoggedIn } = props;
   console.log('props', props);
   const [username, setUsername] = useState("");
@@ -11,7 +11,7 @@ const Login = (props) => {
   const [showCredentialsError, setShowCredentialsError] = useState(false);
   const [loginError, setLoginError] = useState("");
 
-  const navigate = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,7 +21,7 @@ const Login = (props) => {
       window.localStorage.setItem("token", data.token);
       // setToken(data.token);
       setIsLoggedIn(true);
-      history.push("/");
+      navigate('/')
     } else {
       console.log("Login failed");
       setLoginError("Invalid username or password");
