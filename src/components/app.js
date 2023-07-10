@@ -1,42 +1,31 @@
-import React, { useState, useEffect } from "react";
-// getAPIHealth is defined in our axios-services directory index.js
-// you can think of that directory as a collection of api adapters
-// where each adapter fetches specific info from our express server's /api route
-
-import { getAPIHealth } from "../axios-services";
-import Footer from "./footer";
-import HomeContent from "./homecontent";
-import Navbar from "./navbar";
-import Games from "./games"
-import Users from "./users";
-
-import "../style/app.css";
+import React, { useState } from "react";
+import {Routes, Route,} from "react-router-dom";
+import HomePage from "./home";
+import LoginPage from "./login";
+import Register from "./register";
 
 const App = () => {
-  const [APIHealth, setAPIHealth] = useState("");
+    const[isUserLoggedIn,setIsUserLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    // follow this pattern inside your useEffect calls:
-    // first, create an async function that will wrap your axios service adapter
-    // invoke the adapter, await the response, and set the data
-    const getAPIStatus = async () => {
-      const { healthy } = await getAPIHealth();
-      setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
-    };
-
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
-    getAPIStatus();
-  }, []);
+    const setIsLoggedIn  = (isLoggedIn) => {
+        setIsUserLoggedIn(isLoggedIn);
+    }
 
   return (
-    <div className="overflow-hidden">
-      <Navbar />
-      <Users />
-      <Games />
-      {/* <HomeContent /> */}
-      <Footer />
-    </div>
+    <Routes>
+     
+        <Route exact path="/" element={<HomePage/>} />
+        <Route exact path="/register" element={<Register/>} />
+        <Route exact path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isUserLoggedIn} setUser={setUser} />} />
+        {/* <Route exact path="/register" element={(props) => (
+            <Register {...props} isLoggedIn={isUserLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
+        )} /> */}
+        {/* <Route path="/login" element={(props) => (
+            <LoginPage {...props} setIsLoggedIn={setIsLoggedIn}/>
+        )} /> */}
+    
+    </Routes>
   );
 };
 

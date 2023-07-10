@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { fetchUserData } from "../util";
-import "./registerlogin.css";
+import { Navigate, useNavigate } from "react-router-dom";
+import { BASE_URL } from ".";
 
-const Register = ({ setToken, setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
+const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -11,16 +10,16 @@ const Register = ({ setToken, setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [showCredentialsError, setShowCredentialsError] = useState(false);
   const [registerError, setRegisterError] = useState("");
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
-    if (isLoggedIn) navigate("/account");
+    if (isLoggedIn) navigate('/');
   }, []);
 
   const createAccount = async (event) => {
     event.preventDefault();
     const response = await fetch(
-      "https://fitnesstrac-kr.herokuapp.com/api/users/register",
+      `${BASE_URL}/users/register`,
       {
         method: "POST",
         headers: {
@@ -37,12 +36,13 @@ const Register = ({ setToken, setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
       console.log(response);
       const result = await response.json();
       console.log(result);
-      const token = result.token;
-      setToken(token);
-      setIsLoggedIn(true);
-      const userData = await fetchUserData(token);
-      setCurrentUser(userData.data);
-      navigate("/account");
+      // const token = result.token;
+      // window.localStorage.setItem("token", token);
+      // setIsLoggedIn(true);
+      setTimeout(() => {
+        window.location.pathname = '/login'
+      }, 300);
+
     } else {
       console.error;
       const errorMessage = "login" && "Username already taken.";

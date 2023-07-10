@@ -1,7 +1,9 @@
 const express = require("express");
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const usersRouter = express.Router();
 
-const { getLoginDetails } = require("./services/userService");
+const { getLoginDetails, insertUser } = require("./services/userService");
 const { getUserByName, getAllUsers, updateUser, deleteUser } = require("../db/users");
 
 usersRouter.post("/login", async (req, res, next) => {
@@ -14,10 +16,18 @@ usersRouter.post("/login", async (req, res, next) => {
 
   try {
     const user = await getLoginDetails(username, password);
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username,
+      },
+      process.env.JWT_SECRET
+    );
 
-    return res.status(200).json({ user });
+    return res.status(200).json({ user, token });
   } catch (error) {
-    return res.status(500).json({ error });
+    console.log(error);
+    return res.status(500).json({ error: error.message });
   }
 });
 
@@ -32,6 +42,7 @@ usersRouter.post("/register", async (req, res, next) => {
 
   try {
     const _user = await getUserByName(username);
+    console.log('_user', _user);
 
     if (_user) {
       res.send({
@@ -41,27 +52,26 @@ usersRouter.post("/register", async (req, res, next) => {
       });
     } else {
       const user = await insertUser(username, password, email);
+      console.log('user_new', JSON.stringify(user, null, 2));
 
       const token = jwt.sign(
         {
           id: user.id,
           username,
         },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: null,
-        }
+        process.env.JWT_SECRET
       );
 
-      res.send({
+      res.status(201).send({
         message: "thank you for signing up",
         user: user,
         token,
       });
 
-      return res.status(201).json({ user });
+     // return res.status(201).json({ user });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error });
   }
 });

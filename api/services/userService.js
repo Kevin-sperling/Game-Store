@@ -13,8 +13,13 @@ async function getLoginDetails(userName, password, email) {
   return user;
 }
 
-async function insertUser(userName, password, email) {
-  await createUser(userName);
+async function insertUser(username, password, email) {
+ return await createUser({
+    username,
+    password,
+    email,
+    is_admin: false
+  });
 }
 
 module.exports = { insertUser, getLoginDetails };

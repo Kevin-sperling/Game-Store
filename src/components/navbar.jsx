@@ -68,7 +68,7 @@ const Navbar = () => {
             </ul>
           </div>
         ) : null}
-        <a className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base">
+        <a href="/login" className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base">
           Login
         </a>
       </div>
