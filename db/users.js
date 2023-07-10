@@ -2,6 +2,7 @@ const client = require("./client");
 const bcrypt = require("bcrypt");
 
 async function createUser({ username, password, email, is_admin }) {
+  console.log('password', password)
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const {
@@ -17,7 +18,7 @@ async function createUser({ username, password, email, is_admin }) {
   );
 
   delete user.password;
-
+    console.log('user', user)
   return user;
 }
 

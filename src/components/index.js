@@ -13,10 +13,8 @@ export const loginUser = async (username, password) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user: {
           username: username,
           password: password,
-        },
       }),
     });
     const result = await response.json();
@@ -26,23 +24,23 @@ export const loginUser = async (username, password) => {
   }
 };
 
-// export const fetchUserData = async (token) => {
-//   try {
-//     const response = await fetch(
-//       "http://fitnesstrac-kr.herokuapp.com/api/users/me",
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${token}`,
-//         },
-//       }
-//     );
-//     const result = await response.json();
-//     return result;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const fetchUserData = async (token) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/users/login`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // export const fetchPublicRoutinesFeaturingActivity = async (activityId) => {
 //   try {
