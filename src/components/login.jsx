@@ -17,8 +17,11 @@ const Login = (props) => {
     event.preventDefault();
     const data = await loginUser(username, password);
     if (data && data.token) {
+      console.log('data:', data);
       console.log("Logging in...");
       window.localStorage.setItem("token", data.token);
+      window.localStorage.setItem("username", data.user.username);
+
       // setToken(data.token);
       setIsLoggedIn(true);
       navigate('/')
@@ -68,6 +71,7 @@ const Login = (props) => {
         </Link>
       </div>
     </div>
+
   );
 };
 
