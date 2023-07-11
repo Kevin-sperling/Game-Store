@@ -2,3 +2,4 @@ node_modules
 build
 .env
 .vscode/
+/db/client.js
