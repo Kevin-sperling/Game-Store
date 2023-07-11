@@ -3,7 +3,8 @@ const { requireUser } = require("./utils");
 const { viewCartItems, addGameToCart, removeGameFromCart } = require("../db/cart");
 const cartRouter = express.Router();
 
-cartRouter.get('/:userId', requireUser, async (req, res, next) => {
+cartRouter.get('/:userId', async (req, res, next) => {
+
     const { userId } = req.params;
 
     try {
@@ -17,12 +18,13 @@ cartRouter.get('/:userId', requireUser, async (req, res, next) => {
     }
 })
 
-cartRouter.post('/:userId', requireUser, async (req, res, next) => {
+cartRouter.post('/:userId', async (req, res, next) => {
+
     const { userId } = req.params;
-    const { gameId } = req.body
+    const { gameId, quantity } = req.body
 
     try {
-        const addGame = await addGameToCart(gameId)
+        const addGame = await addGameToCart({ userId, gameId, quantity })
 
         res.send(addGame);
 

@@ -1,14 +1,17 @@
 const client = require("./client");
 
-async function addGameToCart({ gameId }) {
-    try {
-        const { rows } = await client.query(`
-        INSERT INTO cart (gameId)
-        VALUES ($1)
-        RETURNING *
-        `[gameId])
+async function addGameToCart({ userId, gameId, quantity }) {
 
-        return rows;
+
+    try {
+        const { rows: [game] } = await client.query(`
+        INSERT INTO cart (user_id, product_id, quantity, price, created_at)
+        VALUES ($1, $2, $3, (SELECT price FROM games WHERE id = $2), CURRENT_TIMESTAMP)
+        RETURNING *;
+      `, [userId, gameId, quantity]);
+
+        return game;
+
     } catch (err) {
         console.log(err);
     }
@@ -29,7 +32,8 @@ async function removeGameFromCart({ gameId }) {
     }
 }
 
-async function viewCartItems({ userId }) {
+async function viewCartItems(userId) {
+
     try {
         const { rows } = await client.query(`
             SELECT *

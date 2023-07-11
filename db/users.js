@@ -18,7 +18,7 @@ async function createUser({ username, password, email, is_admin }) {
   );
 
   delete user.password;
-    console.log('user', user)
+  console.log('user', user)
   return user;
 }
 
@@ -60,6 +60,8 @@ async function getAllUsers() {
   FROM users
   `);
 
+
+
   return rows;
 }
 
@@ -98,11 +100,21 @@ async function updateUser({ id, ...fields }) {
   }
 }
 
+async function getUserIdByUserame(username) {
+  const { rows: [user] } = await client.query(
+    `SELECT id FROM users where username = $1 ;`,
+    [username]
+  );
+
+  return user
+}
+
 module.exports = {
   createUser,
   getUserById,
   getUserByName,
   getAllUsers,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserIdByUserame
 };

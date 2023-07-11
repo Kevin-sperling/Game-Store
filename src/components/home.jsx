@@ -11,7 +11,7 @@ import HomeContent from "./homecontent";
 import Navbar from "./navbar";
 import Games from "./games"
 import Users from "./users";
-import Login from  "./login";
+import Login from "./login";
 import "../style/app.css";
 
 const Home = () => {
@@ -34,8 +34,6 @@ const Home = () => {
   return (
     <div className="overflow-hidden">
       <Navbar />
-     
-       
       <Users />
       <Games />
       {/* <HomeContent /> */}

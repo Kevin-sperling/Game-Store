@@ -46,6 +46,26 @@ const Users = () => {
 
     }
 
+    const deleteUser = async (userId) => {
+
+        try {
+
+            const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+
+            const result = await response.json();
+            console.log("delete user:", result);
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    }
+
 
 
     useEffect(() => {
@@ -63,7 +83,10 @@ const Users = () => {
                         <div>{user.is_admin}</div>
                         {
                             !user.is_admin && (
-                                <button onClick={() => promoteToAdmin(user.id)}>promote to admin</button>
+                                <>
+                                    <button onClick={() => promoteToAdmin(user.id)}>promote to admin</button> <br />
+                                    <button onClick={() => deleteUser(user.id)}>Delete User</button>
+                                </>
                             )
                         }
                         <div>------------------</div>

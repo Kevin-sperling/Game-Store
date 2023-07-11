@@ -13,11 +13,12 @@ export const loginUser = async (username, password) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-          username: username,
-          password: password,
+        username: username,
+        password: password,
       }),
     });
     const result = await response.json();
+    console.log("TEST!:", result)
     return result;
   } catch (error) {
     console.log(error);

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const usersRouter = express.Router();
 
 const { getLoginDetails, insertUser } = require("./services/userService");
-const { getUserByName, getAllUsers, updateUser, deleteUser } = require("../db/users");
+const { getUserByName, getAllUsers, updateUser, deleteUser, getUserIdByUserame } = require("../db/users");
 
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -68,7 +68,7 @@ usersRouter.post("/register", async (req, res, next) => {
         token,
       });
 
-     // return res.status(201).json({ user });
+      // return res.status(201).json({ user });
     }
   } catch (error) {
     console.log(error);
@@ -135,5 +135,20 @@ usersRouter.delete(`/:userId`, async (req, res, next) => {
     next(error)
   }
 })
+
+usersRouter.get("/:username", async (req, res, next) => {
+  const { username } = req.params;
+
+
+  try {
+    const user = await getUserIdByUserame(username)
+
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+});
+
+
 
 module.exports = usersRouter;
