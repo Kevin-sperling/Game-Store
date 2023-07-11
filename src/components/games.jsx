@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 const Games = () => {
     const [games, setGames] = useState([]);
+    const [userId, setUserId] = useState('');
+    const username = window.localStorage.getItem("username");
 
 
     const fetchData = async () => {
@@ -45,9 +47,26 @@ const Games = () => {
 
     }
 
+    const fetchUserId = async () => {
+        try {
+            const response = await fetch(`http://localhost:4000/api/users/${username}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            const result = await response.json();
+
+            setUserId(result.id)
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
 
     useEffect(() => {
         fetchData();
+        fetchUserId();
 
     }, [])
 
