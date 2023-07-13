@@ -46,6 +46,7 @@ const Navbar = () => {
                 <button className="btn btn-primary btn-block">
                   <Link to="/cart">View cart</Link>
                 </button>
+
               </div>
             </div>
           </div>
@@ -70,9 +71,14 @@ const Navbar = () => {
             </ul>
           </div>
         ) : null}
-        <a href="/login" className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base">
-          Login
-        </a>
+        {token ? null : (
+          <a
+            href="/login"
+            className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
+          >
+            Login
+          </a>
+        )}
       </div>
     </div>
   );

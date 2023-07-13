@@ -3,9 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "./index.js";
 
 const Login = (props) => {
-
   const { isLoggedIn, setIsLoggedIn } = props;
-  console.log('props', props);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showCredentialsError, setShowCredentialsError] = useState(false);
@@ -17,14 +15,12 @@ const Login = (props) => {
     event.preventDefault();
     const data = await loginUser(username, password);
     if (data && data.token) {
-      console.log('data:', data);
-      console.log("Logging in...");
+      console.log("Login successful");
       window.localStorage.setItem("token", data.token);
       window.localStorage.setItem("username", data.user.username);
 
-      // setToken(data.token);
       setIsLoggedIn(true);
-      navigate('/')
+      navigate("/");
     } else {
       console.log("Login failed");
       setLoginError("Invalid username or password");
@@ -34,10 +30,7 @@ const Login = (props) => {
 
   return (
     <div className="loginForm">
-      <form
-        onSubmit={handleSubmit}
-        className="registerLoginForm"
-      >
+      <form onSubmit={handleSubmit} className="registerLoginForm">
         <h1 className="pageName">Login</h1>
         <input
           type="text"
@@ -45,6 +38,7 @@ const Login = (props) => {
           placeholder="username"
           minLength="8"
           onChange={(event) => {
+            event.preventDefault();
             setUsername(event.target.value);
           }}
           required
@@ -55,6 +49,7 @@ const Login = (props) => {
           placeholder="password"
           minLength="8"
           onChange={(event) => {
+            event.preventDefault();
             setPassword(event.target.value);
           }}
           required
@@ -71,7 +66,6 @@ const Login = (props) => {
         </Link>
       </div>
     </div>
-
   );
 };
 
