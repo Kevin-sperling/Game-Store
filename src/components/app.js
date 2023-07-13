@@ -4,6 +4,7 @@ import HomePage from "./home";
 import LoginPage from "./login";
 import Register from "./register";
 import SingleGame from "./singleGame";
+import Cart from "./cart";
 
 const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -20,6 +21,7 @@ const App = () => {
       <Route exact path="/game/:id" element={<SingleGame />} />
       <Route exact path="/register" element={<Register />} />
       <Route exact path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isUserLoggedIn} setUser={setUser} />} />
+      <Route exact path="/cart" element={<Cart />} />
       {/* <Route exact path="/register" element={(props) => (
             <Register {...props} isLoggedIn={isUserLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
         )} /> */}

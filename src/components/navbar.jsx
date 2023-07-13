@@ -41,9 +41,7 @@ const Navbar = () => {
               <span className="font-bold text-lg">numberOfItems</span>
               <span className="text-info">Subtotal: $ priceTotal</span>
               <div className="card-actions">
-                <button className="btn btn-primary btn-block">
-                  View cart
-                </button>
+                <button className="btn btn-primary btn-block">View cart</button>
               </div>
             </div>
           </div>
@@ -68,9 +66,14 @@ const Navbar = () => {
             </ul>
           </div>
         ) : null}
-        <a href="/login" className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base">
-          Login
-        </a>
+        {token ? null : (
+          <a
+            href="/login"
+            className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
+          >
+            Login
+          </a>
+        )}
       </div>
     </div>
   );
