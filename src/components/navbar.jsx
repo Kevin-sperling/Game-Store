@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cart from "./cart";
@@ -6,19 +7,22 @@ import Cart from "./cart";
 
 const Navbar = () => {
   const token = window.localStorage.getItem("token");
+  const Navigate = useNavigate();
 
 
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-4xl">
-          GameStahhhp
-        </a>
+        <Link to="/">
+          <a className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-4xl">
+            GameStahhhp
+          </a>
+        </Link>
       </div>
       <div className="flex-none">
         {/* {token ? ( */}
         <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle">
+          <label tabIndex={0} className="btn btn-ghost btn-square">
             <div className="indicator">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -56,25 +60,56 @@ const Navbar = () => {
 
         {token ? (
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full"></div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a className="justify-between">
-                  Account
-                  <span className="badge">numberofNotifications</span>
-                </a>
-              </li>
-            </ul>
+            <div className="dropdown">
+              <label tabIndex={0} className="btn btn-ghost btn-square">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="inline-block w-5 h-5 stroke-current"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  ></path>
+                </svg>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-30"
+              >
+                <li>
+                  <a className="justify-between">
+                    Account
+                    <span className="badge">NUM</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="hover:text-white active:text-violet-600"
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      localStorage.removeItem("username");
+                      Navigate("/");
+                      window.location.reload();
+                    }}
+                  >
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-        ) : null}
-        <a href="/login" className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base">
-          Login
-        </a>
+        ) : (
+          <a
+            href="/login"
+            className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
+          >
+            Login
+          </a>
+        )}
       </div>
     </div>
   );
