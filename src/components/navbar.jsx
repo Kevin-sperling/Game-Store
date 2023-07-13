@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cart from "./cart";
@@ -9,14 +8,13 @@ const Navbar = () => {
   const token = window.localStorage.getItem("token");
   const Navigate = useNavigate();
 
-
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <Link to="/">
-          <a className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-4xl">
+          <div className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-4xl">
             GameStahhhp
-          </a>
+          </div>
         </Link>
       </div>
       <div className="flex-none">
@@ -103,12 +101,14 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <a
-            href="/login"
-            className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
-          >
-            Login
-          </a>
+          <li>
+            <a
+              href="/login"
+              className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
+            >
+              Login
+            </a>
+          </li>
         )}
       </div>
     </div>
