@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, } from "react-router-dom";
 import HomePage from "./home";
 import LoginPage from "./login";
@@ -14,6 +14,36 @@ const App = () => {
     setIsUserLoggedIn(isLoggedIn);
   }
 
+
+
+  const [userId, setUserId] = useState('');
+  console.log("userId", userId)
+
+  const username = window.localStorage.getItem("username");
+
+  const fetchUserId = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/users/${username}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const result = await response.json();
+
+      setUserId(result.id)
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    fetchUserId();
+
+  }, []);
+
+
+
   return (
     <Routes>
 
@@ -21,7 +51,7 @@ const App = () => {
       <Route exact path="/game/:id" element={<SingleGame />} />
       <Route exact path="/register" element={<Register />} />
       <Route exact path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isUserLoggedIn} setUser={setUser} />} />
-      <Route exact path="/cart" element={<Cart />} />
+      <Route exact path="/cart" element={<Cart userId={userId} />} />
       {/* <Route exact path="/register" element={(props) => (
             <Register {...props} isLoggedIn={isUserLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
         )} /> */}

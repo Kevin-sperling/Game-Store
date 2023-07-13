@@ -1,6 +1,6 @@
 const express = require("express");
 const { requireUser } = require("./utils");
-const { viewCartItems, addGameToCart, removeGameFromCart } = require("../db/cart");
+const { viewCartItems, addGameToCart, removeGameFromCart, viewGamesinCart, increaseQuantity } = require("../db/cart");
 const cartRouter = express.Router();
 
 cartRouter.get('/:userId', async (req, res, next) => {
@@ -8,7 +8,7 @@ cartRouter.get('/:userId', async (req, res, next) => {
     const { userId } = req.params;
 
     try {
-        const cart = await viewCartItems(userId)
+        const cart = await viewGamesinCart(userId);
 
         res.send(cart)
 
@@ -35,12 +35,28 @@ cartRouter.post('/:userId', async (req, res, next) => {
 
 });
 
-cartRouter.delete('/:userId', requireUser, async (req, res, next) => {
-    const { userId } = req.params;
-    const { gameId } = req.body;
+cartRouter.post('/:userId/:gameTitle', async (req, res, next) => {
+
+    const { userId, gameTitle } = req.params;
+    // const { gameId, quantity } = req.body
 
     try {
-        const removeGame = await removeGameFromCart(gameId)
+        const addGame = await increaseQuantity({ gameTitle })
+
+        res.send(addGame);
+
+    } catch (err) {
+        console.log(err);
+    }
+
+
+});
+
+cartRouter.delete('/:userId/:cartId', async (req, res, next) => {
+    const { userId, cartId } = req.params;
+
+    try {
+        const removeGame = await removeGameFromCart({ userId, cartId })
 
         res.send(removeGame);
 
