@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 
 const Cart = () => {
   const [games, setGames] = useState([]);
+  const [cart, setCart] = useState([]);
+
+  console.log('test', games)
   const [userId, setUserId] = useState('');
   const username = window.localStorage.getItem("username");
 
   console.log('userId', userId);
 
-  const token = window.localStorage.getItem("token");
 
 
   const getCart = async () => {
+
     console.log('userId:', userId);
 
     try {
@@ -48,37 +51,74 @@ const Cart = () => {
     }
   }
 
+
+
+  const getGamebyId = async (gameId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/games/${gameId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      return result;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+
+  const displayGames = async () => {
+    const gameInfoArray = await Promise.all(games.map((game) => getGamebyId(game.product_id)));
+    console.log('gameInfoArray ', gameInfoArray);
+    setCart(gameInfoArray);
+
+
+
+  };
+
+
   useEffect(() => {
     fetchUserId();
-    getCart();
-
-  }, [])
 
 
+    const timer = setTimeout(() => {
+      getCart();
+      displayGames();
+    }, 3000);
 
+
+
+    return () => clearTimeout(timer);
+  }, []);
 
 
 
   return (
     <>
+      <div>hello {username}</div>
+
+      <button onClick={() => getCart()}><b>Click here to view cart in console</b></button>
+
+
+
 
 
       {
-        games.map((game) =>
-          <div className="card card-compact w-96 bg-base-100 shadow-xl" key={game.id}>
-
+        cart.map((game) =>
+          <div key={game.id}>
+            <h2 >{game.title}</h2>
             <div >
               <img src={game.image_path} alt={game.title} />
             </div>
-            <h2 className="card-title">{game.title}</h2>
+
             <div>{game.price}</div>
 
           </div>
         )
       }
     </>
-
-
 
   );
 };
