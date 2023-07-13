@@ -218,7 +218,7 @@ async function populateInitialData() {
           is_admin: "false",
         },
         {
-          username: "admin",
+          username: "administrator",
           password: "password",
           email: "admin@home.com",
           is_admin: "true",

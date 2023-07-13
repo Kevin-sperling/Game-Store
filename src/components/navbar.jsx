@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 // import Logo from "../Assets/logo.jpg"
 
 const Navbar = () => {
@@ -42,7 +44,7 @@ const Navbar = () => {
               <span className="text-info">Subtotal: $ priceTotal</span>
               <div className="card-actions">
                 <button className="btn btn-primary btn-block">
-                  View cart
+                  <Link to="/cart">View cart</Link>
                 </button>
               </div>
             </div>
