@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 
 async function getLoginDetails(userName, password, email) {
   const user = await getUserByName(userName);
+ 
 
   if (!user) throw new Error("User not found");
 
