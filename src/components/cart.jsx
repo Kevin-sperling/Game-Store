@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const Cart = () => {
+const Cart = ({ userId }) => {
   const [games, setGames] = useState([]);
-  const [cart, setCart] = useState([]);
+  console.log('games:', games);
+  // const [userId, setUserId] = useState('');
 
-  console.log('test', games)
-  const [userId, setUserId] = useState('');
   const username = window.localStorage.getItem("username");
 
-  console.log('userId', userId);
-
-
-
-  const getCart = async () => {
-
-    console.log('userId:', userId);
+  const fetchCart = async () => {
 
     try {
       const response = await fetch(`http://localhost:4000/api/cart/${userId}`, {
@@ -24,10 +17,7 @@ const Cart = () => {
       });
 
       const result = await response.json();
-
       setGames(result)
-
-      console.log('cart', result);
 
     } catch (err) {
       console.error(err);
@@ -35,92 +25,101 @@ const Cart = () => {
 
   }
 
-  const fetchUserId = async () => {
+
+  useEffect(() => {
+    fetchCart();
+
+  }, []);
+
+  const increaseQuantity = async (gameTitle) => {
+    console.log('gameTitle:', gameTitle)
+    console.log('userId:', userId);
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${username}`, {
+      const response = await fetch(`http://localhost:4000/api/cart/${userId}/${gameTitle}`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const result = await response.json();
+      console.log('increase quantity', result);
+
+      fetchCart();
+
+    } catch (err) {
+      console.error(err);
+      throw err
+    }
+
+  }
+
+  const deleteGameFromCart = async (cartId) => {
+    console.log('cartId:', cartId)
+    console.log('userId:', userId);
+    try {
+      const response = await fetch(`http://localhost:4000/api/cart/${userId}/${cartId}`, {
+        method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
         },
       })
       const result = await response.json();
 
-      setUserId(result.id)
+      fetchCart();
 
     } catch (err) {
       console.error(err);
+      throw err
     }
+
   }
 
-
-
-  const getGamebyId = async (gameId) => {
-    try {
-      const response = await fetch(`http://localhost:4000/api/games/${gameId}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const result = await response.json();
-      return result;
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
-
-
-  const displayGames = async () => {
-    const gameInfoArray = await Promise.all(games.map((game) => getGamebyId(game.product_id)));
-    console.log('gameInfoArray ', gameInfoArray);
-    setCart(gameInfoArray);
-
-
-
-  };
-
-
-  useEffect(() => {
-    fetchUserId();
-
-
-    const timer = setTimeout(() => {
-      getCart();
-      displayGames();
-    }, 3000);
-
-
-
-    return () => clearTimeout(timer);
-  }, []);
 
 
 
   return (
     <>
-      <div>hello {username}</div>
+      <h1 className="card-title"><b>{username}'s Cart</b></h1>
+      <br />
 
-      <button onClick={() => getCart()}><b>Click here to view cart in console</b></button>
+      <button onClick={() => fetchCart()}>Click here to view cart in console</button>
 
+      <br />
+      <br />
+      {games.length > 0 ? (
+        <>
+          {games.map((game) => (
+            <div className="card card-compact w-96 bg-base-100 shadow-xl" key={game.id}>
+              <h2 className="card-title">{game.title}</h2>
+              <div>
+                <img src={game.image_path} alt={game.title} />
+              </div>
 
-
-
-
-      {
-        cart.map((game) =>
-          <div key={game.id}>
-            <h2 >{game.title}</h2>
-            <div >
-              <img src={game.image_path} alt={game.title} />
+              <div>{game.price}</div>
+              <div>
+                <button onClick={() => increaseQuantity(game.title)}>Add another to the cart</button> <br />
+                <button onClick={() => deleteGameFromCart(game.cart_id)}>Delete from cart</button>
+              </div>
+              <br />
+              <br />
             </div>
+          ))}
 
-            <div>{game.price}</div>
-
-          </div>
-        )
-      }
+          <h1><b>Total Price: {games.reduce((total, game) => total + parseFloat(game.price), 0)}</b></h1>
+          <button>Checkout</button>
+        </>
+      ) : (
+        <>
+          <div>Loading...</div>
+          <button onClick={() => fetchCart()}>view cart</button>
+        </>
+      )}
     </>
+
 
   );
 };
+
+
 
 export default Cart;
