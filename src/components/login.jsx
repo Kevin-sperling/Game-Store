@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "./index.js";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 
 const Login = (props) => {
   const { isLoggedIn, setIsLoggedIn } = props;
@@ -9,7 +9,6 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [showCredentialsError, setShowCredentialsError] = useState(false);
   const [loginError, setLoginError] = useState("");
-
 
   const navigate = useNavigate();
 
@@ -20,8 +19,8 @@ const Login = (props) => {
       console.log("Login successful", data);
       window.localStorage.setItem("token", data.token);
       window.localStorage.setItem("username", data.user.username);
-     const decoded =  jwt_decode(data.token)
-     console.log(decoded, "decoded")
+      const decoded = jwt_decode(data.token);
+      console.log(decoded, "decoded");
 
       setIsLoggedIn(true);
       navigate("/");
