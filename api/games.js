@@ -9,6 +9,8 @@ const {
   getGameById,
 } = require("../db/games");
 const { requireAdmin } = require("./utils");
+const isAuthed = require("./middleware/isAuthed");
+const isAdmin = require("./middleware/isAdmin");
 
 const gamesRouter = express.Router();
 
@@ -24,7 +26,7 @@ gamesRouter.get("/", async (req, res, next) => {
 });
 
 gamesRouter.get("/:gameId", async (req, res, next) => {
-  const { gameId } = req.params
+  const { gameId } = req.params;
 
   try {
     const games = await getGameById(gameId);
@@ -35,19 +37,16 @@ gamesRouter.get("/:gameId", async (req, res, next) => {
   }
 });
 
-
-gamesRouter.post("/", async (req, res, next) => {
+gamesRouter.post("/", isAuthed, isAdmin, async (req, res, next) => {
   try {
-    const gameData = {
-      title: title,
-      genre: genre,
-      release_date: release_date,
-      price: price,
-      image_path: image_path,
-      platform: platform,
-    };
-
-    const game = createGame(gameData);
+    const game = createGame({
+      title: req.body.title,
+      genre: req.body.genre,
+      release_date: req.body.release_date,
+      price: req.body.price,
+      image_path: req.body.image_path,
+      platform: req.body.platform,
+    });
 
     res.send(game);
   } catch (error) {
@@ -55,7 +54,7 @@ gamesRouter.post("/", async (req, res, next) => {
   }
 });
 
-gamesRouter.delete("/:gameId", requireAdmin, async (req, res, next) => {
+gamesRouter.delete("/:gameId", isAuthed, isAdmin, async (req, res, next) => {
   const { gameId } = req.params;
 
   try {
@@ -67,11 +66,9 @@ gamesRouter.delete("/:gameId", requireAdmin, async (req, res, next) => {
   }
 });
 
-
-gamesRouter.patch("/:id", requireAdmin, async (req, res, next) => {
+gamesRouter.patch("/:id", isAuthed, isAdmin, async (req, res, next) => {
   const { gameId } = req.params;
-  const { title, genre, release_date, price, image_path, platform } =
-    req.body;
+  const { title, genre, release_date, price, image_path, platform } = req.body;
 
   const updateFields = {};
 

@@ -18,10 +18,54 @@ async function createUser({ username, password, email, is_admin }) {
   );
 
   delete user.password;
-  console.log('user', user)
+  console.log('userrrr', user)
   return user;
 }
 
+async function getUserByUsername(username) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+    SELECT *
+    FROM users
+    WHERE username=$1
+    `,
+      [username]
+    );
+
+    if (user) {
+      delete user.password;
+    }
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+async function getUserById(userId) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+    SELECT *
+    FROM users
+    WHERE id=$1
+    `,
+      [userId]
+    );
+
+    if (user) {
+      delete user.password;
+    }
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 async function getUserById(userId) {
   try {
     const {
@@ -116,5 +160,6 @@ module.exports = {
   getAllUsers,
   updateUser,
   deleteUser,
-  getUserIdByUserame
+  getUserIdByUserame,
+  getUserByUsername
 };

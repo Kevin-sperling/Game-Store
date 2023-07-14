@@ -9,7 +9,7 @@ import axios from "axios";
 
 export async function getUsers() {
   try {
-    const { data: users } = await axios.get("/api/users");
+    const { data: users } = await axios.get("http://localhost:4000/api/users");
     return users;
   } catch (err) {
     console.error(err);
@@ -18,7 +18,7 @@ export async function getUsers() {
 
 export async function getAPIHealth() {
   try {
-    const { data } = await axios.get("/api/health");
+    const { data } = await axios.get("http://localhost:4000/api/health");
     return data;
   } catch (err) {
     console.error(err);

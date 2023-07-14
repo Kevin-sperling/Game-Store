@@ -8,13 +8,19 @@ const Users = () => {
     const fetchData = async () => {
 
         try {
-            const response = await fetch('http://localhost:4000/api/users', {
+            const response = await fetch('http://localhost:4000/api/users/all', {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
                 },
             });
 
             const result = await response.json();
+
+            if (result.error) {
+                console.log(result.error);
+                return;
+            }
 
 
             setUsers(result)
