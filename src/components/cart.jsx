@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BASE_URL } from ".";
 
-const Cart = ({ userId }) => {
+const Cart = (props) => {
   const [games, setGames] = useState([]);
   console.log("games:", games);
   // const [userId, setUserId] = useState('');
