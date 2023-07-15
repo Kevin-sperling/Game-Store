@@ -4,7 +4,7 @@ import { BASE_URL } from "../api";
 import HomePage from "./home";
 import LoginPage from "./login";
 import Register from "./register";
-import SingleGame from "./singleGame";
+import SingleGame from "./singlegameview";
 import Cart from "./cart";
 
 const App = () => {
