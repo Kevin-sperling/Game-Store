@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BASE_URL } from ".";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -9,7 +10,7 @@ const Users = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:4000/api/users/all", {
+      const response = await fetch(`${BASE_URL}/users/all`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -28,18 +29,15 @@ const Users = () => {
 
   const promoteToAdmin = async (userId) => {
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/users/${userId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            is_admin: true,
-          }),
-        }
-      );
+      const response = await fetch(`${BASE_URL}/users/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          is_admin: true,
+        }),
+      });
 
       const result = await response.json();
       console.log("promote to admin:", result);
@@ -50,15 +48,12 @@ const Users = () => {
 
   const deleteUser = async (userId) => {
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/users/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/users/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       const result = await response.json();
       console.log("delete user:", result);
@@ -72,26 +67,39 @@ const Users = () => {
   }, []);
 
   return (
-    <>
-      <h1>USERS</h1> <br />
-      {users.map((user) => (
-        <div key={user.id}>
-          <div>{user.username}</div>
-          <div>{user.email}</div>
-          <div>{user.is_admin}</div>
-          {!user.is_admin && (
-            <>
-              <button onClick={() => promoteToAdmin(user.id)}>
-                promote to admin
-              </button>{" "}
-              <br />
-              <button onClick={() => deleteUser(user.id)}>Delete User</button>
-            </>
-          )}
-          <div>------------------</div>
-        </div>
-      ))}
-    </>
+    <div className="justify-center">
+      {" "}
+      <h1>USERS</h1>
+      <div className="flex flex-wrap">
+        {users.map((user) => (
+          <div
+            className="card card-compact w-96 bg-base-100 shadow-xl"
+            key={user.id}
+          >
+            <div>{user.username}</div>
+            <div>{user.email}</div>
+            <div>{user.is_admin}</div>
+            {!user.is_admin && (
+              <>
+                <button
+                  className="btn btn-ghost hover:text-white active:text-violet-600"
+                  onClick={() => promoteToAdmin(user.id)}
+                >
+                  promote to admin
+                </button>{" "}
+                <br />
+                <button
+                  className="btn btn-ghost hover:text-white active:text-violet-600"
+                  onClick={() => deleteUser(user.id)}
+                >
+                  Delete User
+                </button>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

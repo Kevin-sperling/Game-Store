@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { BASE_URL } from ".";
+
 const Games = () => {
   const username = window.localStorage.getItem("username");
 
@@ -14,7 +16,7 @@ const Games = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/games/`, {
+      const response = await fetch(`${BASE_URL}/games/`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -32,7 +34,7 @@ const Games = () => {
     console.log("userId:", userId);
 
     try {
-      const response = await fetch(`http://localhost:4000/api/cart/${userId}`, {
+      const response = await fetch(`${BASE_URL}/cart/${userId}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -48,14 +50,11 @@ const Games = () => {
 
   const fetchUserId = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/users/${username}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/users/${username}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const result = await response.json();
 
       setUserId(result.id);
@@ -76,16 +75,13 @@ const Games = () => {
   };
   const deleteGame = async (gameId) => {
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/games/${gameId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/games/${gameId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
       const result = await response.json();
 
       console.log(result, "delete success");
@@ -115,7 +111,7 @@ const Games = () => {
       platform,
     };
     try {
-      const response = await fetch(`http://localhost:4000/api/games`, {
+      const response = await fetch(`${BASE_URL}/games`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -134,11 +130,11 @@ const Games = () => {
 
   return (
     <>
-      <button onClick={() => getCart()}>
+      {/* <button onClick={() => getCart()}>
         <b>Click here to view cart in console</b>
-      </button>
+      </button> */}
 
-      <div className="">
+      <div className="flex flex-wrap justify-evenly">
         <div className="addGame">Post A Game</div>
         <input
           type="text"
@@ -184,7 +180,7 @@ const Games = () => {
         />
         <button onClick={addGame}> Add Game</button>
       </div>
-      <div>
+      <div className="flex flex-wrap justify-evenly">
         {games.map((game) => (
           <div
             className="card card-compact w-96 bg-base-100 shadow-xl"

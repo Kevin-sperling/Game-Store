@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 
 import { getAPIHealth } from "../axios-services";
 import Footer from "./footer";
-import HomeContent from "./homecontent";
+// import HomeContent from "./homecontent";
 import Navbar from "./navbar";
-import Games from "./games"
+import Games from "./games";
 import Users from "./users";
 import Login from "./login";
 import "../style/app.css";
