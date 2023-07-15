@@ -196,6 +196,7 @@ const Games = () => {
             <h2 className="card-title">{game.title}</h2>
             <h2 className="">{game?.id}</h2>
             <button
+              className="btn btn-ghost hover:text-white active:text-violet-600"
               onClick={() => {
                 deleteGame(game?.id);
               }}
