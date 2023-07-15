@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { BASE_URL } from ".";
-
+import { BASE_URL } from "../api";
 import HomePage from "./home";
 import LoginPage from "./login";
 import Register from "./register";

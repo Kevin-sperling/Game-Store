@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BASE_URL } from ".";
-
+import { BASE_URL } from "../api";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const token = window.localStorage.getItem("token");
