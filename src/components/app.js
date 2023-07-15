@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { BASE_URL } from ".";
+
 import HomePage from "./home";
 import LoginPage from "./login";
 import Register from "./register";
@@ -21,14 +23,11 @@ const App = () => {
 
   const fetchUserId = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/users/${username}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/users/${username}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const result = await response.json();
 
       setUserId(result.id);
