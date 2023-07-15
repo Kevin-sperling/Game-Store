@@ -17,10 +17,13 @@ const Navbar = () => {
           </div>
         </Link>
       </div>
-      <div className="flex-none">
-        {/* {token ? ( */}
+
+      {token ? (
         <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-square">
+          <label
+            tabIndex={0}
+            className="btn btn-ghost btn-square hover:text-white active:text-violet-600"
+          >
             <div className="indicator">
               <Link to="/cart">
                 <svg
@@ -43,73 +46,37 @@ const Navbar = () => {
           <div
             tabIndex={0}
             className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
-          >
-            <div className="card-body">
-              <span className="font-bold text-lg">numberOfItems</span>
-              <span className="text-info">Subtotal: $ priceTotal</span>
-              <div className="card-actions">
-                <button className="btn btn-primary btn-block"></button>
-              </div>
-            </div>
+          ></div>
+        </div>
+      ) : null}
+      {/* ) : null} */}
+
+      {token ? (
+        <div className="dropdown dropdown-end">
+          <div className="dropdown">
+            <a
+              className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("username");
+                Navigate("/");
+                window.location.reload();
+              }}
+            >
+              Logout
+            </a>
           </div>
         </div>
-        {/* ) : null} */}
-
-        {token ? (
-          <div className="dropdown dropdown-end">
-            <div className="dropdown">
-              <label tabIndex={0} className="btn btn-ghost btn-square">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="inline-block w-5 h-5 stroke-current"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
-                </svg>
-              </label>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-30"
-              >
-                <li>
-                  <a className="justify-between">
-                    Account
-                    <span className="badge">NUM</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="hover:text-white active:text-violet-600"
-                    onClick={() => {
-                      localStorage.removeItem("token");
-                      localStorage.removeItem("username");
-                      Navigate("/");
-                      window.location.reload();
-                    }}
-                  >
-                    Logout
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        ) : (
-          <li>
-            <a
-              href="/login"
-              className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
-            >
-              Login
-            </a>
-          </li>
-        )}
-      </div>
+      ) : (
+        <li>
+          <a
+            href="/login"
+            className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
+          >
+            Login
+          </a>
+        </li>
+      )}
     </div>
   );
 };
