@@ -46,9 +46,9 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-black mt-[-3.5in]">
-      <div className="max-w-md bg-gray-900 rounded-lg shadow-lg p-8">
+      <div className="max-w-md bg-gray-1000 rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-bold mb-6 text-white text-center">
-          REGISTER
+          Register
         </h1>
         <form onSubmit={createAccount} className="registerLoginForm">
           <input
@@ -61,7 +61,7 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
               setUsername(event.target.value);
             }}
             required
-            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            className="w-full px-4 py-2 mb-4 bg-gray-200 text-gray-800 rounded"
           />
           <input
             type="text"
@@ -73,7 +73,7 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
               setEmail(event.target.value);
             }}
             required
-            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            className="w-full px-4 py-2 mb-4 bg-gray-200 text-gray-800 rounded"
           />
           <input
             type="password"
@@ -85,7 +85,7 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
               setPassword(event.target.value);
             }}
             required
-            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            className="w-full px-4 py-2 mb-4 bg-gray-200 text-gray-800 rounded"
           />
           <input
             type="password"
@@ -97,7 +97,7 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
               setConfirmPassword(event.target.value);
             }}
             required
-            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            className="w-full px-4 py-2 mb-4 bg-gray-200 text-gray-800 rounded"
           />
           {password !== confirmPassword && (
             <div className="text-red-500 mb-4">Passwords do not match</div>
@@ -107,7 +107,7 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
           )}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition-colors"
+            className="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition-colors"
           >
             Create Account
           </button>
