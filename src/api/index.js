@@ -91,6 +91,7 @@ export const postGames = async (
 export const getMyShoppingCart = async () => {
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
+  let response;
   try {
     if (token) {
       response = await fetch(`${BASE_URL}/cart`, {

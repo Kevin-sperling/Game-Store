@@ -14,8 +14,9 @@ import Users from "./users";
 import Login from "./login";
 import "../style/app.css";
 
-const Home = () => {
+const Home = (props) => {
   const [APIHealth, setAPIHealth] = useState("");
+  const [shoppingCart, setShoppingCart] = useState([]);
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -32,11 +33,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="overflow-hidden bg-black">
-      <Users />
-      <Games />
-      {/* <HomeContent /> */}
-    </div>
+    <div className="overflow-hidden bg-black">{/* <HomeContent /> */}</div>
   );
 };
 
