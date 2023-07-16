@@ -1,95 +1,95 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #111;
-    color: #fff;
-    padding: 0.5rem 1rem;
-  }
-  
-  .navbar a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar a:hover {
-    color: #888;
-  }
-  
-  .navbar .btn {
-    border: none;
-    padding: 0.3rem 0.6rem;
-    background-color: transparent;
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar .btn:hover {
-    color: #888;
-  }
-  
-  .navbar .btn svg {
-    height: 1.2rem;
-    width: 1.2rem;
-    fill: currentColor;
-    stroke: currentColor;
-    stroke-width: 2;
-  }
-  
-  .navbar .dropdown {
-    position: relative;
-  }
-  
-  .navbar .dropdown .dropdown-content {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: none;
-    background-color: #111;
-    padding: 1rem;
-    z-index: 1;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .navbar .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .navbar .indicator {
-    position: relative;
-    display: inline-block;
-    margin-right: 0.5rem;
-  }
-  
-  .navbar .indicator::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: -0.5rem;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: rgb(21, 19, 19);
-  }
-  
-  .logo-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .game {
-    font-family: Impact, sans-serif;
-    font-size: 55px;
-    color: rgb(234, 13, 13);
-    text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; 
-  }
-  
-  .stahhhp {
-    font-family: Impact, sans-serif;
-    font-size: 55px;
-    color: black;
-    text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; 
+/* .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 0.5rem 1rem;
+}
 
-  }
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #888;
+}
+
+.navbar .btn {
+  border: none;
+  padding: 0.3rem 0.6rem;
+  background-color: transparent;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar .btn:hover {
+  color: #888;
+} */
+
+/* .navbar .btn svg {
+  height: 1.2rem;
+  width: 1.2rem;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 2;
+} */
+
+/* .navbar .dropdown {
+  position: relative;
+}
+
+.navbar .dropdown .dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  background-color: #111;
+  padding: 1rem;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+} */
+
+/* .navbar .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.navbar .indicator {
+  position: relative;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.navbar .indicator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -0.5rem;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgb(21, 19, 19);
+} */
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.game {
+  font-family: Impact, sans-serif;
+  font-size: 55px;
+  color: rgb(234, 13, 13);
+  text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+    2px 2px 0 #fff;
+}
+
+.stahhhp {
+  font-family: Impact, sans-serif;
+  font-size: 55px;
+  color: black;
+  text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+    2px 2px 0 #fff;
+}

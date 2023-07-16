@@ -33,11 +33,9 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden bg-black">
-      <Navbar />
       <Users />
       <Games />
       {/* <HomeContent /> */}
-      <Footer />
     </div>
   );
 };

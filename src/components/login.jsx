@@ -7,7 +7,6 @@ import Navbar from "./navbar";
 
 import "../style/login.css";
 
-
 const Login = (props) => {
   const { isLoggedIn, setIsLoggedIn } = props;
   const [username, setUsername] = useState("");
@@ -38,44 +37,43 @@ const Login = (props) => {
 
   return (
     <>
-      <Navbar />
       <div className="loginForm">
-      <form onSubmit={handleSubmit} className="registerLoginForm">
-        <h1 className="pageName">Login</h1>
-        <input
-          type="text"
-          id="username"
-          placeholder="username"
-          minLength="8"
-          onChange={(event) => {
-            event.preventDefault();
-            setUsername(event.target.value);
-          }}
-          required
-        />
-        <input
-          type="password"
-          id="password"
-          placeholder="password"
-          minLength="8"
-          onChange={(event) => {
-            event.preventDefault();
-            setPassword(event.target.value);
-          }}
-          required
-        />
-        {showCredentialsError ? (
-          <div className="error">{loginError}</div>
-        ) : null}
-        <button type="submit">Login</button>
-      </form>
+        <form onSubmit={handleSubmit} className="registerLoginForm">
+          <h1 className="pageName">Login</h1>
+          <input
+            type="text"
+            id="username"
+            placeholder="username"
+            minLength="8"
+            onChange={(event) => {
+              event.preventDefault();
+              setUsername(event.target.value);
+            }}
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            placeholder="password"
+            minLength="8"
+            onChange={(event) => {
+              event.preventDefault();
+              setPassword(event.target.value);
+            }}
+            required
+          />
+          {showCredentialsError ? (
+            <div className="error">{loginError}</div>
+          ) : null}
+          <button type="submit">Login</button>
+        </form>
 
-      <div className="">
-        <Link to="/register">
-          Don't have an account? <br /> Sign up!
-        </Link>
+        <div className="">
+          <Link to="/register">
+            Don't have an account? <br /> Sign up!
+          </Link>
+        </div>
       </div>
-    </div>
     </>
   );
 };

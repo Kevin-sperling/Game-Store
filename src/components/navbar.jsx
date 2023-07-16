@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cart from "./cart";
 import "../style/navbar.css";
-
-
 
 const Navbar = () => {
   const token = window.localStorage.getItem("token");
@@ -11,22 +8,22 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100">
-    <div className="flex-1">
-      <Link to="/">
-        <div className="logo-container">
-          <span className="game">Game</span>
-          <span className="stahhhp">Stahhhp</span>
-        </div>
-      </Link>
-    </div>
+      <div className="flex-1">
+        <Link to="/">
+          <div className="logo-container">
+            <span className="game">Game</span>
+            <span className="stahhhp">Stahhhp</span>
+          </div>
+        </Link>
+      </div>
 
       {token ? (
         <div className="dropdown dropdown-end">
           <label
             tabIndex={0}
-            className="btn btn-ghost btn-square hover:text-white active:text-violet-600"
+            className="btn btn-ghost btn-square hover:text-white active:text-red-600"
           >
-            <div className="indicator">
+            <div>
               <Link to="/cart">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -45,10 +42,6 @@ const Navbar = () => {
               </Link>
             </div>
           </label>
-          <div
-            tabIndex={0}
-            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
-          ></div>
         </div>
       ) : null}
       {/* ) : null} */}
@@ -57,7 +50,7 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <div className="dropdown">
             <a
-              className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
+              className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
               onClick={() => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("username");
@@ -73,7 +66,7 @@ const Navbar = () => {
         <li>
           <a
             href="/login"
-            className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-base"
+            className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
           >
             Login
           </a>
