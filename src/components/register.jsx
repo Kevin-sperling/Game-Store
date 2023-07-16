@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL } from "../api";
-
-import styles from "../style/register.css";
-
 
 const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [username, setUsername] = useState("");
@@ -36,9 +33,6 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
       console.log(response);
       const result = await response.json();
       console.log(result);
-      // const token = result.token;
-      // window.localStorage.setItem("token", token);
-      // setIsLoggedIn(true);
       setTimeout(() => {
         window.location.pathname = "/login";
       }, 300);
@@ -51,60 +45,71 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   };
 
   return (
-    <>
-      <h1 className="pageName">REGISTER</h1>
-      <form onSubmit={createAccount} className="registerLoginForm">
-        <input
-          type="text"
-          value={username}
-          id="username"
-          placeholder="username"
-          minLength="8"
-          onChange={(event) => {
-            setUsername(event.target.value);
-          }}
-          required
-        />
-        <input
-          type="text"
-          value={email}
-          id="email"
-          placeholder="email"
-          minLength="8"
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          id="password"
-          placeholder="password"
-          minLength="8"
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-          required
-        />
-        <input
-          type="password"
-          value={confirmPassword}
-          id="confirm_password"
-          name="confirm_password"
-          placeholder="confirm password"
-          onChange={(event) => {
-            setConfirmPassword(event.target.value);
-          }}
-          required
-        />
-        {password !== confirmPassword && <div>Passwords do not match</div>}
-        {showCredentialsError ? (
-          <div className="error">{registerError}</div>
-        ) : null}
-        <button type="submit">Create Account</button>
-      </form>
-    </>
+    <div className="flex justify-center items-center h-screen bg-black mt-[-3.5in]">
+      <div className="max-w-md bg-gray-900 rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-bold mb-6 text-white text-center">REGISTER</h1>
+        <form onSubmit={createAccount} className="registerLoginForm">
+          <input
+            type="text"
+            value={username}
+            id="username"
+            placeholder="Username"
+            minLength="8"
+            onChange={(event) => {
+              setUsername(event.target.value);
+            }}
+            required
+            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+          />
+          <input
+            type="text"
+            value={email}
+            id="email"
+            placeholder="Email"
+            minLength="8"
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+            required
+            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+          />
+          <input
+            type="password"
+            value={password}
+            id="password"
+            placeholder="Password"
+            minLength="8"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+            required
+            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+          />
+          <input
+            type="password"
+            value={confirmPassword}
+            id="confirm_password"
+            name="confirm_password"
+            placeholder="Confirm Password"
+            onChange={(event) => {
+              setConfirmPassword(event.target.value);
+            }}
+            required
+            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+          />
+          {password !== confirmPassword && (
+            <div className="text-red-500 mb-4">Passwords do not match</div>
+          )}
+          {showCredentialsError && <div className="text-white mb-4">{registerError}</div>}
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition-colors"
+          >
+            Create Account
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
