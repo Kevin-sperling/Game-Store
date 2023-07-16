@@ -1,0 +1,145 @@
+.addGame {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .games-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 16px;
+  }
+  
+  .card {
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #2e2d2d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .card:hover::before {
+    opacity: 0.2;
+    box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.5);
+  }
+  
+  .card::after {
+    content: "Click to see game details!";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px 12px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .card:hover::after {
+    opacity: 1;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    justify-content: center;
+    color: #fff;
+  }
+  
+  .game-image {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover;
+  }
+  
+  .price {
+    position: absolute;
+    bottom: 8px;
+    right: 8px; 
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-ghost {
+    background-color: transparent;
+    border: 1px solid #333;
+    color: #333;
+  }
+  
+  .btn-ghost:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .btn-ghost:active {
+    background-color: #666;
+    color: #fff;
+  }
+  
+  .hover:text-white:hover {
+    color: #fff;
+  }
+  
+  .active:text-violet-600:active {
+    color: #8a34f7;
+  }
+  
+  .delete-button {
+    margin-top: 8px;
+    border-radius: 4px;
+  }
+  
+  .framed-button {
+    border: 1px solid #333;
+    background-color: transparent;
+    color: #333;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: inline-block;
+  }
+  
+  .framed-button:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .framed-button:active {
+    background-color: #666;
+    color: #fff;
+  }
+  
