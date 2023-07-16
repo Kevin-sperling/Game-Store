@@ -16,7 +16,7 @@ const Games = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/games/`, {
+      const response = await fetch(`${BASE_URL}/games`, {
         headers: {
           "Content-Type": "application/json",
         },

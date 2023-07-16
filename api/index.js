@@ -3,7 +3,7 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 
-const { getUserById } = require("../db/users");
+const { getUserById } = require("../db/models/users");
 
 router.get("/health", (req, res, next) => {
   res.send({

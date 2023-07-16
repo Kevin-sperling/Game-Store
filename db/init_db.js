@@ -4,8 +4,8 @@ const {
   // for example, User
 } = require("./");
 
-const { createGame } = require("./games");
-const { createUser } = require("./users");
+const { createGame } = require("./models/games");
+const { createUser } = require("./models/users");
 
 async function buildTables() {
   try {
