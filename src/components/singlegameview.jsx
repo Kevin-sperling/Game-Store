@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../api";
 
+import "../style/singlegameview.css";
+
 const SingleGameView = () => {
   const [userId, setUserId] = useState("");
 
@@ -59,16 +61,18 @@ const SingleGameView = () => {
   }, []);
 
   return (
-    <div>
-      {" "}
-      <div key={game.id}>
-        <h2>{game.title}</h2>
-        <div>{game.genre}</div>
-        <div>{game.platform}</div>
-        <div>{game.price}</div>
-        <button onClick={() => handleAddToCart(game.id)}>Add to Cart</button>
-
-        <img src={game.image_path} alt={game.title} />
+    <div className="singleGameViewContainer">
+      <div className="cardContainer">
+        <div className="gameImageContainer">
+          <img src={game.image_path} alt={game.title} />
+        </div>
+        <div className="gameInfoContainer">
+          <h2>{game.title}</h2>
+          <div>{game.genre}</div>
+          <div>{game.platform}</div>
+          <div>{game.price}</div>
+          <button onClick={() => handleAddToCart(game.id)}>Add to Cart</button>
+        </div>
       </div>
     </div>
   );
