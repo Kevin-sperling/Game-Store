@@ -3,6 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL, loginUser } from "../api";
 import jwt_decode from "jwt-decode";
 
+import "../style/login.css";
+
+
 const Login = (props) => {
   const { isLoggedIn, setIsLoggedIn } = props;
   const [username, setUsername] = useState("");
