@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { BASE_URL, getAllGames, postGameToShoppingCart, getMyShoppingCart } from "../api/index.js";
+
+
+
+import {
+  BASE_URL,
+  getAllGames,
+  postGameToShoppingCart,
+  getMyShoppingCart,
+} from "../api/index.js";
+
+
+
 import "../style/games.css";
 
 const Games = (props) => {
@@ -33,7 +44,44 @@ const Games = (props) => {
     }
   };
 
+  
+  // const getCart = async () => {
+  //   console.log("userId:", userId);
+
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/cart/${userId}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     const result = await response.json();
+
+  //     console.log("cart", result);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  // const fetchUserId = async () => {
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/users/${username}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const result = await response.json();
+
+  //     setUserId(result.id);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
   useEffect(() => {
+    // fetchData();
+
+    
     (async () => {
       let games = await getAllGames();
       setGames(games);
@@ -104,7 +152,11 @@ const Games = (props) => {
     }
   };
 
-  const handleAddToCart = async (event, game) => {
+
+  
+  const handleAddToCart = async (event, games) => {
+
+    
     event.preventDefault();
     let userId = window.localStorage.getItem("userId");
     console.log("userId:", userId);
@@ -117,11 +169,13 @@ const Games = (props) => {
       handleAddToCart();
     }
 
-    const newShoppingCart = [...shoppingCart, ...myShoppingCart, game];
+    
+    const newShoppingCart = [...shoppingCart, ...myShoppingCart, games];
     setShoppingCart(newShoppingCart);
     localStorage.setItem("cart", JSON.stringify(newShoppingCart));
   };
 
+  
   return (
     <>
       <div className="flex flex-wrap justify-evenly">
@@ -172,12 +226,25 @@ const Games = (props) => {
       </div>
       <div className="flex flex-wrap justify-evenly">
         {games.map((game) => (
-          <div className="card card-compact w-96 bg-base-100 shadow-xl" key={game?.id}>
+
+          
+          <div
+            className="card card-compact w-96 bg-base-100 shadow-xl"
+            key={game?.id}
+          >
+
+            
             <div>
               <img src={game?.image_path} alt={game?.title} />
             </div>
             <h2 className="card-title">{game.title}</h2>
             <div className="price">${game?.price}</div>
+
+
+            {/* <h2 className="">{game?.id}</h2> */}
+
+
+
             <button
               className="btn btn-ghost hover:text-white active:text-violet-600"
               onClick={() => {

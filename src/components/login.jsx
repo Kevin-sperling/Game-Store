@@ -34,7 +34,9 @@ const Login = (props) => {
   return (
     <div className="flex justify-center items-center h-screen bg-black mt-[-3.5in]">
       <div className="max-w-md bg-gray-900 rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold mb-6 text-white text-center">Login</h1>
+        <h1 className="text-3xl font-bold mb-6 text-white text-center">
+          Login
+        </h1>
         <form onSubmit={handleSubmit} className="registerLoginForm">
           <input
             type="text"

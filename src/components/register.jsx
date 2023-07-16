@@ -47,7 +47,9 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   return (
     <div className="flex justify-center items-center h-screen bg-black mt-[-3.5in]">
       <div className="max-w-md bg-gray-900 rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold mb-6 text-white text-center">REGISTER</h1>
+        <h1 className="text-3xl font-bold mb-6 text-white text-center">
+          REGISTER
+        </h1>
         <form onSubmit={createAccount} className="registerLoginForm">
           <input
             type="text"
@@ -100,7 +102,9 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
           {password !== confirmPassword && (
             <div className="text-red-500 mb-4">Passwords do not match</div>
           )}
-          {showCredentialsError && <div className="text-white mb-4">{registerError}</div>}
+          {showCredentialsError && (
+            <div className="text-white mb-4">{registerError}</div>
+          )}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition-colors"

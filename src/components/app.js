@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
 import { BASE_URL } from "../api";
+
 import Navbar from "./navbar";
-import Footer from "./footer";
+import Users from "./users";
+import Games from "./games";
 import Home from "./home";
 import Login from "./login";
 import Register from "./register";
 import SingleGameView from "./singlegameview";
 import Cart from "./cart";
 import Checkout from "./checkout";
+import Footer from "./footer";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,9 +54,10 @@ const App = () => {
       <Navbar />
 
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<Games />} />
         <Route exact path="/game/:id" element={<SingleGameView />} />
         <Route exact path="/register" element={<Register />} />
+        <Route />
         <Route
           exact
           path="/login"
@@ -73,6 +77,8 @@ const App = () => {
               userId={userId}
               shoppingCart={shoppingCart}
               setShoppingCart={setShoppingCart}
+              games={games}
+              setGames={setGames}
             />
           }
         />

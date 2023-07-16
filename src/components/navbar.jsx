@@ -18,7 +18,7 @@ const Navbar = () => {
       </div>
 
       {token ? (
-        <div className="dropdown dropdown-end">
+        <div className="">
           <label
             tabIndex={0}
             className="btn btn-ghost btn-square hover:text-white active:text-red-600"
@@ -47,30 +47,38 @@ const Navbar = () => {
       {/* ) : null} */}
 
       {token ? (
-        <div className="dropdown dropdown-end">
-          <div className="dropdown">
+        <div>
+          <a
+            className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("username");
+              Navigate("/");
+              window.location.reload();
+            }}
+          >
+            Logout
+          </a>
+        </div>
+      ) : (
+        <div>
+          <div>
             <a
+              href="/login"
               className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
-              onClick={() => {
-                localStorage.removeItem("token");
-                localStorage.removeItem("username");
-                Navigate("/");
-                window.location.reload();
-              }}
             >
-              Logout
+              Login
+            </a>
+          </div>
+          <div>
+            <a
+              href="/register"
+              className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
+            >
+              Register
             </a>
           </div>
         </div>
-      ) : (
-        <li>
-          <a
-            href="/login"
-            className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
-          >
-            Login
-          </a>
-        </li>
       )}
     </div>
   );
