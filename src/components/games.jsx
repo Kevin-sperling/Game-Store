@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 
+
+
 import {
   BASE_URL,
   getAllGames,
   postGameToShoppingCart,
   getMyShoppingCart,
 } from "../api/index.js";
+
+
 
 import "../style/games.css";
 
@@ -40,6 +44,7 @@ const Games = (props) => {
     }
   };
 
+  
   // const getCart = async () => {
   //   console.log("userId:", userId);
 
@@ -75,6 +80,8 @@ const Games = (props) => {
 
   useEffect(() => {
     // fetchData();
+
+    
     (async () => {
       let games = await getAllGames();
       setGames(games);
@@ -105,6 +112,7 @@ const Games = (props) => {
       console.error(err);
     }
   };
+
   const addGame = async () => {
     if (
       title === "" ||
@@ -125,6 +133,7 @@ const Games = (props) => {
       image_path: image,
       platform,
     };
+
     try {
       const response = await fetch(`${BASE_URL}/games`, {
         method: "POST",
@@ -143,7 +152,11 @@ const Games = (props) => {
     }
   };
 
+
+  
   const handleAddToCart = async (event, games) => {
+
+    
     event.preventDefault();
     let userId = window.localStorage.getItem("userId");
     console.log("userId:", userId);
@@ -155,16 +168,16 @@ const Games = (props) => {
     } else {
       handleAddToCart();
     }
+
+    
     const newShoppingCart = [...shoppingCart, ...myShoppingCart, games];
     setShoppingCart(newShoppingCart);
     localStorage.setItem("cart", JSON.stringify(newShoppingCart));
   };
+
+  
   return (
     <>
-      {/* <button onClick={() => getCart()}>
-        <b>Click here to view cart in console</b>
-      </button> */}
-
       <div className="flex flex-wrap justify-evenly">
         <div className="addGame">Post A Game</div>
         <input
@@ -209,20 +222,28 @@ const Games = (props) => {
             setPlatform(e.target.value);
           }}
         />
-        <button onClick={addGame}> Add Game</button>
+        <button onClick={addGame}>Add Game</button>
       </div>
       <div className="flex flex-wrap justify-evenly">
         {games.map((game) => (
+
+          
           <div
             className="card card-compact w-96 bg-base-100 shadow-xl"
             key={game?.id}
           >
+
+            
             <div>
               <img src={game?.image_path} alt={game?.title} />
             </div>
             <h2 className="card-title">{game.title}</h2>
             <div className="price">${game?.price}</div>
+
+
             {/* <h2 className="">{game?.id}</h2> */}
+
+
 
             <button
               className="btn btn-ghost hover:text-white active:text-violet-600"
