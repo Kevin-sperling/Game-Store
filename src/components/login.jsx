@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL, loginUser } from "../api";
 import jwt_decode from "jwt-decode";
 
-import Navbar from "./navbar";
 
 import "../style/login.css";
 
