@@ -34,50 +34,53 @@ const Login = (props) => {
   };
 
   return (
-    <>
-      <div className="loginForm">
+    <div className="flex justify-center items-center h-screen bg-black mt-[-3.5in]">
+      <div className="max-w-md bg-gray-900 rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-bold mb-6 text-white text-center">
+          Login
+        </h1>
         <form onSubmit={handleSubmit} className="registerLoginForm">
-          <h1 className="pageName">Login</h1>
           <input
             type="text"
             id="username"
-            placeholder="username"
+            placeholder="Username"
             minLength="8"
             onChange={(event) => {
               event.preventDefault();
               setUsername(event.target.value);
             }}
             required
+            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
           />
           <input
             type="password"
             id="password"
-            placeholder="password"
+            placeholder="Password"
             minLength="8"
             onChange={(event) => {
               event.preventDefault();
               setPassword(event.target.value);
             }}
             required
+            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
           />
           {showCredentialsError ? (
-            <div className="error custom-error">{loginError}</div>
+            <div className="text-white mb-2">{loginError}</div>
           ) : null}
           <button
-            className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
             type="submit"
+            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition-colors"
           >
             Login
           </button>
         </form>
-
-        <div>
+        <div className="text-white mt-4 text-center">
           <Link to="/register">
             Don't have an account? <br /> Sign up!
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
