@@ -33,7 +33,7 @@ const Login = (props) => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-black mt-[-3.5in]">
-      <div className="max-w-md bg-gray-900 rounded-lg shadow-lg p-8">
+      <div className="max-w-md bg-gray-1000 rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-bold mb-6 text-white text-center">
           Login
         </h1>
@@ -48,7 +48,7 @@ const Login = (props) => {
               setUsername(event.target.value);
             }}
             required
-            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            className="w-full px-4 py-2 mb-4 bg-gray-200 text-gray-800 rounded"
           />
           <input
             type="password"
@@ -60,14 +60,14 @@ const Login = (props) => {
               setPassword(event.target.value);
             }}
             required
-            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            className="w-full px-4 py-2 mb-4 bg-gray-200 text-gray-800 rounded"
           />
           {showCredentialsError ? (
             <div className="text-white mb-2">{loginError}</div>
           ) : null}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition-colors"
+            className="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition-colors"
           >
             Login
           </button>
