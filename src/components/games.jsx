@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BASE_URL } from "../api";
+import { BASE_URL, getAllGames, postGameToShoppingCart, getMyShoppingCart } from "../api/index.js";
+import "../style/games.css";
 
-const Games = () => {
+const Games = (props) => {
+  const { isLoggedIn, setIsLoggedIn, shoppingCart, setShoppingCart } = props;
+
   const username = window.localStorage.getItem("username");
 
   const [games, setGames] = useState([]);
@@ -12,6 +15,7 @@ const Games = () => {
   const [platform, setPlatform] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [image, setImage] = useState("");
+  const [user, setUser] = useState({});
 
   const fetchData = async () => {
     try {
@@ -29,49 +33,20 @@ const Games = () => {
     }
   };
 
-  const getCart = async () => {
-    console.log("userId:", userId);
-
-    try {
-      const response = await fetch(`${BASE_URL}/cart/${userId}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const result = await response.json();
-
-      console.log("cart", result);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const fetchUserId = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/users/${username}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const result = await response.json();
-
-      setUserId(result.id);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
+    (async () => {
+      let games = await getAllGames();
+      setGames(games);
+    })();
   }, []);
 
-  const handleClick = (game) => {
+  const handleSingleView = (game) => {
     localStorage.setItem("game", JSON.stringify(game));
     setTimeout(() => {
       window.location.pathname = `/game/${game.id}`;
     }, 300);
   };
+
   const deleteGame = async (gameId) => {
     try {
       const response = await fetch(`${BASE_URL}/games/${gameId}`, {
@@ -89,6 +64,7 @@ const Games = () => {
       console.error(err);
     }
   };
+
   const addGame = async () => {
     if (
       title === "" ||
@@ -109,6 +85,7 @@ const Games = () => {
       image_path: image,
       platform,
     };
+
     try {
       const response = await fetch(`${BASE_URL}/games`, {
         method: "POST",
@@ -127,17 +104,34 @@ const Games = () => {
     }
   };
 
+  const handleAddToCart = async (event, game) => {
+    event.preventDefault();
+    let userId = window.localStorage.getItem("userId");
+    console.log("userId:", userId);
+    const myShoppingCart = await getMyShoppingCart();
+    console.log("myShoppingCart:", myShoppingCart);
+
+    if (!isLoggedIn) {
+      alert("added to cart");
+    } else {
+      handleAddToCart();
+    }
+
+    const newShoppingCart = [...shoppingCart, ...myShoppingCart, game];
+    setShoppingCart(newShoppingCart);
+    localStorage.setItem("cart", JSON.stringify(newShoppingCart));
+  };
+
   return (
     <>
       <div className="flex flex-wrap justify-evenly">
-        <div className="text-xl font-bold mb-4">Post A Game</div>
+        <div className="addGame">Post A Game</div>
         <input
           type="text"
           placeholder="title"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -145,7 +139,6 @@ const Games = () => {
           onChange={(e) => {
             setGenre(e.target.value);
           }}
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -153,7 +146,6 @@ const Games = () => {
           onChange={(e) => {
             setReleaseDate(e.target.value);
           }}
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -161,7 +153,6 @@ const Games = () => {
           onChange={(e) => {
             setPrice(e.target.value);
           }}
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -169,7 +160,6 @@ const Games = () => {
           onChange={(e) => {
             setImage(e.target.value);
           }}
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -177,41 +167,33 @@ const Games = () => {
           onChange={(e) => {
             setPlatform(e.target.value);
           }}
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
-        <button
-          onClick={addGame}
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-sm hover:bg-blue-600 transition-colors"
-        >
-          Add Game
-        </button>
+        <button onClick={addGame}>Add Game</button>
       </div>
-      <div className="flex flex-wrap justify-evenly mt-8">
+      <div className="flex flex-wrap justify-evenly">
         {games.map((game) => (
-          <div
-            className="card card-compact w-96 bg-base-100 shadow-xl flex flex-col items-center my-4 mx-2 hover:bg-base-200 transition-colors"
-            key={game?.id}
-          >
-            <div
+          <div className="card card-compact w-96 bg-base-100 shadow-xl" key={game?.id}>
+            <div>
+              <img src={game?.image_path} alt={game?.title} />
+            </div>
+            <h2 className="card-title">{game.title}</h2>
+            <div className="price">${game?.price}</div>
+            <button
+              className="btn btn-ghost hover:text-white active:text-violet-600"
               onClick={() => {
-                handleClick(game);
+                handleSingleView(game);
               }}
-              className="game-image-frame mb-2"
-              style={{ height: "200px" }}
             >
-              <img
-                src={game?.image_path}
-                alt={game?.title}
-                className="game-image object-cover h-full w-full"
-              />
-            </div>
-            <h2 className="text-white text-xl font-bold mb-2 text-center">
-              {game.title}
-            </h2>
-            <div className="price absolute bottom-2 text-white right-2 font-bold">
-              ${game?.price}
-            </div>
-            <h2 className="text-xl font-bold mb-2">{game?.id}</h2>
+              See Details
+            </button>
+            <button
+              className="btn btn-ghost hover:text-white active:text-violet-600"
+              onClick={(event) => {
+                handleAddToCart(event, game);
+              }}
+            >
+              Add to Cart
+            </button>
             <button
               className="btn btn-ghost hover:text-white active:text-violet-600"
               onClick={() => {
