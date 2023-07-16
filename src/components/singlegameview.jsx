@@ -70,7 +70,7 @@ const SingleGameView = () => {
           <h2>{game.title}</h2>
           <div>{game.genre}</div>
           <div>{game.platform}</div>
-          <div>{game.price}</div>
+          <div>${game.price}</div>
           <button onClick={() => handleAddToCart(game.id)}>Add to Cart</button>
         </div>
       </div>

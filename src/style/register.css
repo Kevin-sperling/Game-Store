@@ -1,58 +1,65 @@
-.registerForm a {
-    color: #fff;
-    text-decoration: none;
-    text-align: center;
-    margin-top: 1rem;
-    display: block;
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
   }
   
   .pageName {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 16px;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
   }
   
   .registerLoginForm {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    padding: 1rem;
+    background-color: #111;
+    color: #fff;
   }
   
-  .registerLoginForm input {
-    margin-bottom: 8px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  .registerLoginForm input[type="text"],
+  .registerLoginForm input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
   }
   
   .password-error {
     color: red;
     font-size: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
   }
   
   .error {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 8px;
+    color: rgb(14, 13, 13);
+    margin-bottom: 0.5rem;
   }
   
   .login-button {
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-    background-color: #333;
+    border: none;
+    padding: 0.5rem 1rem;
+    background-color: #111;
     color: #fff;
-    transition: background-color 0.3s ease;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   .login-button:hover {
-    background-color: #666;
+    background-color: #888;
+    color: #fff;
   }
   
   .login-button:active {
     background-color: #999;
+  }
+  
+  .registerForm .error.custom-error {
+    color: white;
+  }
+  
+  .registerLoginForm > * {
+    margin-bottom: 0.5rem;
   }
   
