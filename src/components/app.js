@@ -10,13 +10,17 @@ import Checkout from "./checkout";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedInUsername, setLoggedInUsername] = useState("");
   const [user, setUser] = useState(null);
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const [games, setGames] = useState([]);
+
+  const [userId, setUserId] = useState("");
 
   // const setIsLoggedIn = (isLoggedIn) => {
   //   setIsUserLoggedIn(isLoggedIn);
   // };
 
-  const [userId, setUserId] = useState("");
   console.log("userId", userId);
 
   const username = window.localStorage.getItem("username");
@@ -36,10 +40,9 @@ const App = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchUserId();
-
-  // }, []);
+  useEffect(() => {
+    fetchUserId();
+  }, []);
 
   return (
     <Routes>
@@ -57,7 +60,17 @@ const App = () => {
           />
         }
       />
-      <Route exact path="/cart" element={<Cart userId={userId} />} />
+      <Route
+        exact
+        path="/cart"
+        element={
+          <Cart
+            userId={userId}
+            shoppingCart={shoppingCart}
+            setShoppingCart={setShoppingCart}
+          />
+        }
+      />
       <Route
         exact
         path="/checkout"
