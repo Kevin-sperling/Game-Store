@@ -42,6 +42,8 @@
   
   .gameInfoContainer h2 {
     margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
   }
   
   .gameInfoContainer button {
