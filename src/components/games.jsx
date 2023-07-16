@@ -129,10 +129,6 @@ const Games = () => {
 
   return (
     <>
-      {/* <button onClick={() => getCart()}>
-        <b>Click here to view cart in console</b>
-      </button> */}
-
       <div className="flex flex-wrap justify-evenly">
         <div className="text-xl font-bold mb-4">Post A Game</div>
         <input
