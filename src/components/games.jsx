@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { BASE_URL } from "../api";
 
+import "../style/games.css";
+
 const Games = () => {
   const username = window.localStorage.getItem("username");
 
@@ -194,6 +196,7 @@ const Games = () => {
               <img src={game?.image_path} alt={game?.title} />
             </div>
             <h2 className="card-title">{game.title}</h2>
+            <div className="price">${game?.price}</div>
             <h2 className="">{game?.id}</h2>
             <button
               className="btn btn-ghost hover:text-white active:text-violet-600"
