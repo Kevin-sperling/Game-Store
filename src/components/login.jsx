@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL, loginUser } from "../api";
 import jwt_decode from "jwt-decode";
 
-
 import "../style/login.css";
 
 const Login = (props) => {
@@ -64,10 +63,15 @@ const Login = (props) => {
           {showCredentialsError ? (
             <div className="error custom-error">{loginError}</div>
           ) : null}
-          <button type="submit">Login</button>
+          <button
+            className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
+            type="submit"
+          >
+            Login
+          </button>
         </form>
 
-        <div className="">
+        <div>
           <Link to="/register">
             Don't have an account? <br /> Sign up!
           </Link>

@@ -4,7 +4,6 @@ import { BASE_URL } from "../api";
 
 import styles from "../style/register.css";
 
-
 const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -51,7 +50,7 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   };
 
   return (
-    <>
+    <div>
       <h1 className="pageName">REGISTER</h1>
       <form onSubmit={createAccount} className="registerLoginForm">
         <input
@@ -104,7 +103,7 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
         ) : null}
         <button type="submit">Create Account</button>
       </form>
-    </>
+    </div>
   );
 };
 

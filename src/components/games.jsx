@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 
-import { BASE_URL } from "../api";
+import {
+  BASE_URL,
+  getAllGames,
+  postGameToShoppingCart,
+  getMyShoppingCart,
+} from "../api/index.js";
 
 import "../style/games.css";
 
-const Games = () => {
+const Games = (props) => {
+  const { isLoggedIn, setIsLoggedIn, shoppingCart, setShoppingCart } = props;
+
   const username = window.localStorage.getItem("username");
 
   const [games, setGames] = useState([]);
@@ -15,6 +22,7 @@ const Games = () => {
   const [platform, setPlatform] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [image, setImage] = useState("");
+  const [user, setUser] = useState({});
 
   const fetchData = async () => {
     try {
@@ -32,49 +40,54 @@ const Games = () => {
     }
   };
 
-  const getCart = async () => {
-    console.log("userId:", userId);
+  // const getCart = async () => {
+  //   console.log("userId:", userId);
 
-    try {
-      const response = await fetch(`${BASE_URL}/cart/${userId}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/cart/${userId}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      const result = await response.json();
+  //     const result = await response.json();
 
-      console.log("cart", result);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //     console.log("cart", result);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
-  const fetchUserId = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/users/${username}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const result = await response.json();
+  // const fetchUserId = async () => {
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/users/${username}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const result = await response.json();
 
-      setUserId(result.id);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //     setUserId(result.id);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    (async () => {
+      let games = await getAllGames();
+      setGames(games);
+    })();
   }, []);
 
-  const handleClick = (game) => {
+  const handleSingleView = (game) => {
     localStorage.setItem("game", JSON.stringify(game));
     setTimeout(() => {
       window.location.pathname = `/game/${game.id}`;
     }, 300);
   };
+
   const deleteGame = async (gameId) => {
     try {
       const response = await fetch(`${BASE_URL}/games/${gameId}`, {
@@ -130,6 +143,22 @@ const Games = () => {
     }
   };
 
+  const handleAddToCart = async (event, games) => {
+    event.preventDefault();
+    let userId = window.localStorage.getItem("userId");
+    console.log("userId:", userId);
+    const myShoppingCart = await getMyShoppingCart();
+    console.log("myShoppingCart:", myShoppingCart);
+
+    if (!isLoggedIn) {
+      alert("added to cart");
+    } else {
+      handleAddToCart();
+    }
+    const newShoppingCart = [...shoppingCart, ...myShoppingCart, games];
+    setShoppingCart(newShoppingCart);
+    localStorage.setItem("cart", JSON.stringify(newShoppingCart));
+  };
   return (
     <>
       {/* <button onClick={() => getCart()}>
@@ -188,16 +217,29 @@ const Games = () => {
             className="card card-compact w-96 bg-base-100 shadow-xl"
             key={game?.id}
           >
-            <div
-              onClick={() => {
-                handleClick(game);
-              }}
-            >
+            <div>
               <img src={game?.image_path} alt={game?.title} />
             </div>
             <h2 className="card-title">{game.title}</h2>
             <div className="price">${game?.price}</div>
-            <h2 className="">{game?.id}</h2>
+            {/* <h2 className="">{game?.id}</h2> */}
+
+            <button
+              className="btn btn-ghost hover:text-white active:text-violet-600"
+              onClick={() => {
+                handleSingleView(game);
+              }}
+            >
+              See Details
+            </button>
+            <button
+              className="btn btn-ghost hover:text-white active:text-violet-600"
+              onClick={(event) => {
+                handleAddToCart(event, game);
+              }}
+            >
+              Add to Cart
+            </button>
             <button
               className="btn btn-ghost hover:text-white active:text-violet-600"
               onClick={() => {
