@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL, loginUser } from "../api";
 import jwt_decode from "jwt-decode";
 
+import Navbar from "./navbar";
+
 import "../style/login.css";
 
 
@@ -35,7 +37,9 @@ const Login = (props) => {
   };
 
   return (
-    <div className="loginForm">
+    <>
+      <Navbar />
+      <div className="loginForm">
       <form onSubmit={handleSubmit} className="registerLoginForm">
         <h1 className="pageName">Login</h1>
         <input
@@ -72,6 +76,7 @@ const Login = (props) => {
         </Link>
       </div>
     </div>
+    </>
   );
 };
 
