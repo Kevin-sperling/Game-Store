@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../api";
 
 import styles from "../style/register.css";
+import Navbar from "./navbar";
 
 
 const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
@@ -52,6 +53,7 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
 
   return (
     <>
+    <Navbar />
       <h1 className="pageName">REGISTER</h1>
       <form onSubmit={createAccount} className="registerLoginForm">
         <input
