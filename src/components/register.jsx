@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../api";
+import styles from "../style/register.css";
 
 const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [username, setUsername] = useState("");
@@ -37,8 +38,8 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
         window.location.pathname = "/login";
       }, 300);
     } else {
-      console.error;
-      const errorMessage = "login" && "Username already taken.";
+      console.error();
+      const errorMessage = "Username already taken.";
       setRegisterError(errorMessage);
       setShowCredentialsError(true);
     }
