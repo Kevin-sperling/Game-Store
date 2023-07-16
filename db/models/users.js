@@ -18,7 +18,7 @@ async function createUser({ username, password, email, is_admin }) {
   );
 
   delete user.password;
-  console.log("userrrr", user);
+  console.log("user", user);
   return user;
 }
 
