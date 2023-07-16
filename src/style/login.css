@@ -52,3 +52,7 @@
     margin-top: 1rem;
     display: block;
   }
+
+  .error.custom-error {
+    color: white;
+  }
