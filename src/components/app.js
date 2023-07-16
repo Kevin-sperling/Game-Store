@@ -6,6 +6,7 @@ import LoginPage from "./login";
 import Register from "./register";
 import SingleGame from "./singlegameview";
 import Cart from "./cart";
+import Checkout from "./checkout";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,6 +58,18 @@ const App = () => {
         }
       />
       <Route exact path="/cart" element={<Cart userId={userId} />} />
+      <Route
+        exact
+        path="/checkout"
+        element={
+          <Checkout
+            user={user}
+            setUser={setUser}
+            // shoppingCart={shoppingCart}
+            // setShoppingCart={setShoppingCart}
+          />
+        }
+      />
       {/* <Route exact path="/register" element={(props) => (
             <Register {...props} isLoggedIn={isUserLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
         )} /> */}
