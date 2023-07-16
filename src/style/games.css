@@ -9,11 +9,11 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 16px;
-    margin-top: 16px; /* Add margin-top for vertical spacing */
+    margin-top: 16px; 
   }
   
   .card {
-    flex: 0 0 calc(25% - 16px); /* Adjust the width as needed */
+    flex: 0 0 calc(25% - 16px); 
     padding: 16px;
     border-radius: 4px;
     background-color: #2e2d2d;
@@ -23,8 +23,8 @@
     justify-content: space-between;
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
-    margin-top: 8px; /* Add margin-top for spacing between cards */
-    margin-bottom: 8px; /* Add margin-bottom for spacing between cards */
+    margin-top: 8px; 
+    margin-bottom: 8px; 
   }
   
   .card::before {
