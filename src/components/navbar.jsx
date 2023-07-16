@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cart from "./cart";
+import "../style/navbar.css";
 
-// import Logo from "../Assets/logo.jpg"
+
 
 const Navbar = () => {
   const token = window.localStorage.getItem("token");
@@ -10,13 +11,14 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100">
-      <div className="flex-1">
-        <Link to="/">
-          <div className="btn btn-ghost normal-case hover:text-white active:text-violet-600 text-4xl">
-            GameStahhhp
-          </div>
-        </Link>
-      </div>
+    <div className="flex-1">
+      <Link to="/">
+        <div className="logo-container">
+          <span className="game">Game</span>
+          <span className="stahhhp">Stahhhp</span>
+        </div>
+      </Link>
+    </div>
 
       {token ? (
         <div className="dropdown dropdown-end">
