@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { BASE_URL } from "../api";
-import HomePage from "./home";
-import LoginPage from "./login";
+import Home from "./home";
+import Login from "./login";
 import Register from "./register";
-import SingleGame from "./singlegameview";
+import SingleGameView from "./singlegameview";
 import Cart from "./cart";
 import Checkout from "./checkout";
 
@@ -46,14 +46,14 @@ const App = () => {
 
   return (
     <Routes>
-      <Route exact path="/" element={<HomePage />} />
-      <Route exact path="/game/:id" element={<SingleGame />} />
+      <Route exact path="/" element={<Home />} />
+      <Route exact path="/game/:id" element={<SingleGameView />} />
       <Route exact path="/register" element={<Register />} />
       <Route
         exact
         path="/login"
         element={
-          <LoginPage
+          <Login
             setIsLoggedIn={setIsLoggedIn}
             isLoggedIn={isLoggedIn}
             setUser={setUser}
