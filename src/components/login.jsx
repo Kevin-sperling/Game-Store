@@ -3,9 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL, loginUser } from "../api";
 import jwt_decode from "jwt-decode";
 
-
-import "../style/login.css";
-
 const Login = (props) => {
   const { isLoggedIn, setIsLoggedIn } = props;
   const [username, setUsername] = useState("");
@@ -36,38 +33,45 @@ const Login = (props) => {
 
   return (
     <>
-      <div className="loginForm">
-        <form onSubmit={handleSubmit} className="registerLoginForm">
-          <h1 className="pageName">Login</h1>
+      <div className="flex flex-col items-center mt-8">
+        <form onSubmit={handleSubmit} className="w-full max-w-sm bg-black text-white p-4">
+          <h1 className="text-2xl text-center mb-4">Login</h1>
           <input
             type="text"
             id="username"
-            placeholder="username"
+            placeholder="Username"
             minLength="8"
             onChange={(event) => {
               event.preventDefault();
               setUsername(event.target.value);
             }}
             required
+            className="w-full p-2 mb-2 bg-gray-800 text-white"
           />
           <input
             type="password"
             id="password"
-            placeholder="password"
+            placeholder="Password"
             minLength="8"
             onChange={(event) => {
               event.preventDefault();
               setPassword(event.target.value);
             }}
             required
+            className="w-full p-2 mb-2 bg-gray-800 text-white"
           />
           {showCredentialsError ? (
-            <div className="error custom-error">{loginError}</div>
+            <div className="text-white mb-2">{loginError}</div>
           ) : null}
-          <button type="submit">Login</button>
+          <button
+            type="submit"
+            className="w-full p-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600 transition-colors"
+          >
+            Login
+          </button>
         </form>
 
-        <div className="">
+        <div className="text-white mt-4">
           <Link to="/register">
             Don't have an account? <br /> Sign up!
           </Link>
