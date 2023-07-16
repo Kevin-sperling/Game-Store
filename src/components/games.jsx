@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-
 import { BASE_URL } from "../api";
-
-import "../style/games.css";
 
 const Games = () => {
   const username = window.localStorage.getItem("username");
@@ -137,13 +134,14 @@ const Games = () => {
       </button> */}
 
       <div className="flex flex-wrap justify-evenly">
-        <div className="addGame">Post A Game</div>
+        <div className="text-xl font-bold mb-4">Post A Game</div>
         <input
           type="text"
           placeholder="title"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -151,6 +149,7 @@ const Games = () => {
           onChange={(e) => {
             setGenre(e.target.value);
           }}
+          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -158,6 +157,7 @@ const Games = () => {
           onChange={(e) => {
             setReleaseDate(e.target.value);
           }}
+          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -165,6 +165,7 @@ const Games = () => {
           onChange={(e) => {
             setPrice(e.target.value);
           }}
+          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -172,6 +173,7 @@ const Games = () => {
           onChange={(e) => {
             setImage(e.target.value);
           }}
+          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
         <input
           type="text"
@@ -179,25 +181,41 @@ const Games = () => {
           onChange={(e) => {
             setPlatform(e.target.value);
           }}
+          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
         />
-        <button onClick={addGame}> Add Game</button>
+        <button
+          onClick={addGame}
+          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-sm hover:bg-blue-600 transition-colors"
+        >
+          Add Game
+        </button>
       </div>
-      <div className="flex flex-wrap justify-evenly">
+      <div className="flex flex-wrap justify-evenly mt-8">
         {games.map((game) => (
           <div
-            className="card card-compact w-96 bg-base-100 shadow-xl"
+            className="card card-compact w-96 bg-base-100 shadow-xl flex flex-col items-center my-4 mx-2 hover:bg-base-200 transition-colors"
             key={game?.id}
           >
             <div
               onClick={() => {
                 handleClick(game);
               }}
+              className="game-image-frame mb-2"
+              style={{ height: "200px" }}
             >
-              <img src={game?.image_path} alt={game?.title} />
+              <img
+                src={game?.image_path}
+                alt={game?.title}
+                className="game-image object-cover h-full w-full"
+              />
             </div>
-            <h2 className="card-title">{game.title}</h2>
-            <div className="price">${game?.price}</div>
-            <h2 className="">{game?.id}</h2>
+            <h2 className="text-white text-xl font-bold mb-2 text-center">
+              {game.title}
+            </h2>
+            <div className="price absolute bottom-2 text-white right-2 font-bold">
+              ${game?.price}
+            </div>
+            <h2 className="text-xl font-bold mb-2">{game?.id}</h2>
             <button
               className="btn btn-ghost hover:text-white active:text-violet-600"
               onClick={() => {
