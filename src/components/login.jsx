@@ -32,10 +32,10 @@ const Login = (props) => {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center mt-8">
-        <form onSubmit={handleSubmit} className="w-full max-w-sm bg-black text-white p-4">
-          <h1 className="text-2xl text-center mb-4">Login</h1>
+    <div className="flex justify-center items-center h-screen bg-black mt-[-3.5in]">
+      <div className="max-w-md bg-gray-900 rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-bold mb-6 text-white text-center">Login</h1>
+        <form onSubmit={handleSubmit} className="registerLoginForm">
           <input
             type="text"
             id="username"
@@ -46,7 +46,7 @@ const Login = (props) => {
               setUsername(event.target.value);
             }}
             required
-            className="w-full p-2 mb-2 bg-gray-800 text-white"
+            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
           />
           <input
             type="password"
@@ -58,26 +58,25 @@ const Login = (props) => {
               setPassword(event.target.value);
             }}
             required
-            className="w-full p-2 mb-2 bg-gray-800 text-white"
+            className="w-full px-4 py-2 mb-4 bg-gray-800 text-white rounded"
           />
           {showCredentialsError ? (
             <div className="text-white mb-2">{loginError}</div>
           ) : null}
           <button
             type="submit"
-            className="w-full p-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600 transition-colors"
+            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition-colors"
           >
             Login
           </button>
         </form>
-
-        <div className="text-white mt-4">
+        <div className="text-white mt-4 text-center">
           <Link to="/register">
             Don't have an account? <br /> Sign up!
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
