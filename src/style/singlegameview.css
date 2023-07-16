@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color:#fff;
+    color: #fff;
   }
   
   .cardContainer {
@@ -12,20 +12,16 @@
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transform: skewY(-5deg);
     background-color: #2e2d2d;
-
   }
   
   .gameImageContainer {
     flex: 1;
     padding: 20px;
-    transform: skewY(5deg);
     overflow: hidden;
   }
   
   .gameImageContainer img {
-    transform: skewY(-5deg);
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -37,11 +33,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    transform: skewY(5deg);
   }
   
   .gameInfoContainer h2 {
     margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
   }
   
   .gameInfoContainer button {
