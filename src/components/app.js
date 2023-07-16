@@ -29,6 +29,8 @@ const App = () => {
   console.log("userId", userId);
 
   const username = window.localStorage.getItem("username");
+  const id = window.localStorage.setItem(userId, "id");
+  console.log("id", id);
 
   const fetchUserId = async () => {
     try {
@@ -40,6 +42,8 @@ const App = () => {
       const result = await response.json();
 
       setUserId(result.id);
+
+      console.log("result.id", result.id);
     } catch (err) {
       console.error(err);
     }
