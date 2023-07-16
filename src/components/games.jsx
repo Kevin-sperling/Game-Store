@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { BASE_URL } from ".";
+import { BASE_URL } from "../api";
 
 const Games = () => {
   const username = window.localStorage.getItem("username");

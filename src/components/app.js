@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { BASE_URL } from ".";
-
+import { BASE_URL } from "../api";
 import HomePage from "./home";
 import LoginPage from "./login";
 import Register from "./register";
-import SingleGame from "./singleGame";
+import SingleGame from "./singlegameview";
 import Cart from "./cart";
+import Checkout from "./checkout";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,6 +58,18 @@ const App = () => {
         }
       />
       <Route exact path="/cart" element={<Cart userId={userId} />} />
+      <Route
+        exact
+        path="/checkout"
+        element={
+          <Checkout
+            user={user}
+            setUser={setUser}
+            // shoppingCart={shoppingCart}
+            // setShoppingCart={setShoppingCart}
+          />
+        }
+      />
       {/* <Route exact path="/register" element={(props) => (
             <Register {...props} isLoggedIn={isUserLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
         )} /> */}

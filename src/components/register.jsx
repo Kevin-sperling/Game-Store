@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { BASE_URL } from ".";
+import { BASE_URL } from "../api";
 
 const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [username, setUsername] = useState("");
@@ -10,28 +10,25 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [showCredentialsError, setShowCredentialsError] = useState(false);
   const [registerError, setRegisterError] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoggedIn) navigate('/');
+    if (isLoggedIn) navigate("/");
   }, []);
 
   const createAccount = async (event) => {
     event.preventDefault();
-    const response = await fetch(
-      `${BASE_URL}/users/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-          email: email,
-        }),
-      }
-    );
+    const response = await fetch(`${BASE_URL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        email: email,
+      }),
+    });
     if (response.ok) {
       console.log(response);
       const result = await response.json();
@@ -40,9 +37,8 @@ const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
       // window.localStorage.setItem("token", token);
       // setIsLoggedIn(true);
       setTimeout(() => {
-        window.location.pathname = '/login'
+        window.location.pathname = "/login";
       }, 300);
-
     } else {
       console.error;
       const errorMessage = "login" && "Username already taken.";
