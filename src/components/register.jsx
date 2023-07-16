@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../api";
 
+import styles from "../style/register.css";
+
+
 const Register = ({ setIsLoggedIn, isLoggedIn, setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
