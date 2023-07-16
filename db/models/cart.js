@@ -1,5 +1,41 @@
 const client = require("../client");
 
+async function createShoppingCart({ shopperId, orderTotal, quantity }) {
+  try {
+    const {
+      rows: [cart],
+    } = await client.query(
+      `
+        INSERT INTO cart ("shopperId", "orderTotal", quantity)
+        VALUES ($1, $2, $3)
+        RETURNING *;
+    `,
+      [shopperId, orderTotal, quantity]
+    );
+
+    return cart;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function createGamesCart({ productId, cartId }) {
+  try {
+    const { rows } = await client.query(
+      `
+        INSERT INTO games_cart ("productId", "cartId")
+        VALUES ($1, $2)
+        RETURNING *;
+    `,
+      [productId, cartId]
+    );
+
+    return rows;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 async function addGameToCart({ userId, gameId, quantity }) {
   try {
     const {
@@ -90,6 +126,8 @@ async function viewGamesinCart(userId) {
 }
 
 module.exports = {
+  createShoppingCart,
+  createGamesCart,
   addGameToCart,
   removeGameFromCart,
   viewGamesinCart,
