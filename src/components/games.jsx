@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+
+import { BASE_URL } from "../api";
+
 import "../style/games.css";
 
 const Games = () => {
@@ -13,11 +15,10 @@ const Games = () => {
   const [platform, setPlatform] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [image, setImage] = useState("");
-  const [admin, setAdmin] = useState("");
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/games/`, {
+      const response = await fetch(`${BASE_URL}/games/`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -35,7 +36,7 @@ const Games = () => {
     console.log("userId:", userId);
 
     try {
-      const response = await fetch(`http://localhost:4000/api/cart/${userId}`, {
+      const response = await fetch(`${BASE_URL}/cart/${userId}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -50,44 +51,33 @@ const Games = () => {
   };
 
   const fetchUserId = async () => {
-    console.log("username from games", username);
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${username}`, {
+      const response = await fetch(`${BASE_URL}/users/${username}`, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      if (!response.ok) {
-        throw new Error("User fetch failed");
-      }
-
       const result = await response.json();
-      console.log("result", result);
 
       setUserId(result.id);
-      setAdmin(username);
     } catch (err) {
       console.error(err);
     }
   };
 
-
   useEffect(() => {
     fetchData();
-    fetchUserId();
   }, []);
 
-  const navigate = useNavigate();
-
   const handleClick = (game) => {
-    localStorage.setItem("selectedGameId", game.id);
-    navigate(`/game/${game.id}`);
+    localStorage.setItem("game", JSON.stringify(game));
+    setTimeout(() => {
+      window.location.pathname = `/game/${game.id}`;
+    }, 300);
   };
-
   const deleteGame = async (gameId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/games/${gameId}`, {
+      const response = await fetch(`${BASE_URL}/games/${gameId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +92,6 @@ const Games = () => {
       console.error(err);
     }
   };
-
   const addGame = async () => {
     if (
       title === "" ||
@@ -124,7 +113,7 @@ const Games = () => {
       platform,
     };
     try {
-      const response = await fetch(`http://localhost:4000/api/games`, {
+      const response = await fetch(`${BASE_URL}/games`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -143,69 +132,80 @@ const Games = () => {
 
   return (
     <>
-      <button onClick={() => getCart()}>
+      {/* <button onClick={() => getCart()}>
         <b>Click here to view cart in console</b>
-      </button>
-      {admin === "administrator" && (
-        <div className="">
-          <div className="addGame">Post A Game</div>
-          <input
-            type="text"
-            placeholder="title"
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="genre"
-            onChange={(e) => {
-              setGenre(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="release_date"
-            onChange={(e) => {
-              setReleaseDate(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="price"
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="image_path"
-            onChange={(e) => {
-              setImage(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="platform"
-            onChange={(e) => {
-              setPlatform(e.target.value);
-            }}
-          />
-          {username === "administrator" && <button onClick={addGame}> Add Game</button>}
-        </div>
-      )}
-      <div className="games-container">
+      </button> */}
+
+      <div className="flex flex-wrap justify-evenly">
+        <div className="addGame">Post A Game</div>
+        <input
+          type="text"
+          placeholder="title"
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="genre"
+          onChange={(e) => {
+            setGenre(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="release_date"
+          onChange={(e) => {
+            setReleaseDate(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="price"
+          onChange={(e) => {
+            setPrice(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="image_path"
+          onChange={(e) => {
+            setImage(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="platform"
+          onChange={(e) => {
+            setPlatform(e.target.value);
+          }}
+        />
+        <button onClick={addGame}> Add Game</button>
+      </div>
+      <div className="flex flex-wrap justify-evenly">
         {games.map((game) => (
-          <div className="card card-compact bg-base-100 shadow-xl" key={game?.id} onClick={() => handleClick(game)}>
-            <div>
-              <img className="game-image" src={game?.image_path} alt={game?.title} />
+          <div
+            className="card card-compact w-96 bg-base-100 shadow-xl"
+            key={game?.id}
+          >
+            <div
+              onClick={() => {
+                handleClick(game);
+              }}
+            >
+              <img src={game?.image_path} alt={game?.title} />
             </div>
             <h2 className="card-title">{game.title}</h2>
-            {username === "administrator" && <h2>{game?.id}</h2>}
-            {username === "administrator" && (
-              <button onClick={() => deleteGame(game?.id)}>Delete</button>
-            )}
-            <div className="price">${game.price}</div>
+            <div className="price">${game?.price}</div>
+            <h2 className="">{game?.id}</h2>
+            <button
+              className="btn btn-ghost hover:text-white active:text-violet-600"
+              onClick={() => {
+                deleteGame(game?.id);
+              }}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
