@@ -63,7 +63,7 @@ const Login = (props) => {
             required
           />
           {showCredentialsError ? (
-            <div className="error">{loginError}</div>
+            <div className="error custom-error">{loginError}</div>
           ) : null}
           <button type="submit">Login</button>
         </form>
