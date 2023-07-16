@@ -7,7 +7,7 @@ const {
   updateGame,
   deleteGame,
   getGameById,
-} = require("../db/games");
+} = require("../db/models/games");
 const { requireAdmin } = require("./utils");
 const isAuthed = require("./middleware/isAuthed");
 const isAdmin = require("./middleware/isAdmin");

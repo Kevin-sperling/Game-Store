@@ -1,8 +1,8 @@
-const client = require("./client");
+const client = require("../client");
 const bcrypt = require("bcrypt");
 
 async function createUser({ username, password, email, is_admin }) {
-  console.log('password', password)
+  console.log("password", password);
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const {
@@ -18,7 +18,7 @@ async function createUser({ username, password, email, is_admin }) {
   );
 
   delete user.password;
-  console.log('userrrr', user)
+  console.log("userrrr", user);
   return user;
 }
 
@@ -104,53 +104,60 @@ async function getAllUsers() {
   FROM users
   `);
 
-
-
   return rows;
 }
 
 async function deleteUser(userId) {
-  const { rows: [user] } = await client.query(`
+  const {
+    rows: [user],
+  } = await client.query(
+    `
   DELETE FROM users
   WHERE id = $1
   RETURNING *
-  `, [userId]);
+  `,
+    [userId]
+  );
 
   return user;
 }
 
 async function updateUser({ id, ...fields }) {
-
-  const setString = Object.keys(fields).map(
-    (key, index) => `"${key}" = $${index + 2}`).join(`, `);
-
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}" = $${index + 2}`)
+    .join(`, `);
 
   if (setString.length === 0) {
     return;
   }
 
   try {
-    const { rows: [user] } = await client.query(`
+    const {
+      rows: [user],
+    } = await client.query(
+      `
       UPDATE users
       SET ${setString}
       WHERE id = $1
       RETURNING *;
-    `, [id, ...Object.values(fields)]);
+    `,
+      [id, ...Object.values(fields)]
+    );
 
     return user;
-
   } catch (error) {
     throw error;
   }
 }
 
 async function getUserIdByUserame(username) {
-  const { rows: [user] } = await client.query(
-    `SELECT id FROM users where username = $1 ;`,
-    [username]
-  );
+  const {
+    rows: [user],
+  } = await client.query(`SELECT id FROM users where username = $1 ;`, [
+    username,
+  ]);
 
-  return user
+  return user;
 }
 
 module.exports = {
@@ -161,5 +168,5 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserIdByUserame,
-  getUserByUsername
+  getUserByUsername,
 };

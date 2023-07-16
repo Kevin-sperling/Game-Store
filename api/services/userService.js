@@ -1,9 +1,8 @@
-const { getUserByName, createUser } = require("../../db/users");
+const { getUserByName, createUser } = require("../../db/models/users");
 const bcrypt = require("bcrypt");
 
 async function getLoginDetails(userName, password, email) {
   const user = await getUserByName(userName);
- 
 
   if (!user) throw new Error("User not found");
 
@@ -15,11 +14,11 @@ async function getLoginDetails(userName, password, email) {
 }
 
 async function insertUser(username, password, email) {
- return await createUser({
+  return await createUser({
     username,
     password,
     email,
-    is_admin: false
+    is_admin: false,
   });
 }
 
