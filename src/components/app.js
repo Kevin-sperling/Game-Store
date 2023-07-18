@@ -34,7 +34,7 @@ const App = () => {
 
   console.log("userId", userId);
 
-  const username = localStorage.getItem("username");
+  setUsername(localStorage.getItem("username"));
   console.log("username ===", username);
 
   const fetchUserId = async () => {
