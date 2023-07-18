@@ -13,7 +13,6 @@ const Games = (props) => {
   const { isLoggedIn, shoppingCart, setShoppingCart, games, setGames } = props;
 
   const username = localStorage.getItem("username");
-  const token = window.localStorage.getItem("token");
 
   // const [games, setGames] = useState([]);
   const [userId, setUserId] = useState("");

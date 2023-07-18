@@ -34,7 +34,10 @@ const App = () => {
 
   console.log("userId", userId);
 
-  const getUserId = async () => {
+  const username = localStorage.getItem("username");
+  console.log("username ===", username);
+
+  const fetchUserId = async () => {
     try {
       const response = await fetch(`${BASE_URL}/users/${username}`, {
         headers: {
