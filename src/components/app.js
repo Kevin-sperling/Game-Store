@@ -34,12 +34,17 @@ const App = () => {
 
   console.log("userId", userId);
 
+
   useEffect(() => {
     checkToken();
     fetchUserId();
   }, []);
 
-  const fetchUserId = async () => {
+  // setUsername(localStorage.getItem("username"));
+  console.log("username ===", username);
+
+
+  const getUserId = async () => {
     try {
       const storedUsername = localStorage.getItem("username");
       console.log("storedUsername ===", storedUsername);
@@ -60,7 +65,16 @@ const App = () => {
     }
   };
 
+
   console.log("userId", userId);
+
+
+  useEffect(() => {
+    checkToken();
+    getUserId();
+  }, []);
+
+  // console.log("userId", userId);
 
   return (
     <div>

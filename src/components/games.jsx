@@ -155,7 +155,6 @@ const Games = (props) => {
     let userId = await localStorage.getItem("userId");
     console.log("userId ===", userId);
     const myShoppingCart = await getMyShoppingCart();
-    console.log("myShoppingCart ===", myShoppingCart);
 
     // if (isLoggedIn) {
     //   alert("added to cart");
@@ -167,11 +166,12 @@ const Games = (props) => {
     const newShoppingCart = [...myShoppingCart, games];
     setShoppingCart(newShoppingCart);
     // localStorage.setItem("cart", JSON.stringify(newShoppingCart));
+    console.log("myShoppingCart from games.jsx", myShoppingCart);
   };
 
   return (
     <>
-      {is_admin === 'true' && (
+      {is_admin === "true" && (
         <div className="flex flex-wrap justify-evenly">
           <div className="addGame">Post A Game</div>
           <input
@@ -268,15 +268,15 @@ const Games = (props) => {
             >
               Add to Cart
             </button>
-            {is_admin === 'true' && (
+            {is_admin === "true" && (
               <button
-              className="game-image-frame mb-2"
-              onClick={() => {
-                deleteGame(game?.id);
-              }}
-            >
-              Delete
-            </button>
+                className="game-image-frame mb-2"
+                onClick={() => {
+                  deleteGame(game?.id);
+                }}
+              >
+                Delete
+              </button>
             )}
           </div>
         ))}
