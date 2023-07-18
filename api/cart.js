@@ -9,6 +9,7 @@ const {
   // increaseQuantity,
   getShoppingCartItemsByUser,
   getShoppingCart,
+  addGameToCart,
 } = require("../db/models/cart");
 const { getGameById } = require("../db");
 
@@ -34,8 +35,9 @@ cartRouter.get("/", requireUser, async (req, res, next) => {
 cartRouter.post("/", requireUser, async (req, res, next) => {
   try {
     const shopperId = req.user.id;
+
     const { orderTotal, quantity } = req.body;
-    const shoppingCart = await shoppingCart({
+    const shoppingCart = await addGameToCart({
       shopperId,
       orderTotal,
       quantity,

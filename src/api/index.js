@@ -16,7 +16,7 @@ export const loginUser = async (username, password) => {
       }),
     });
     const result = await response.json();
-    console.log("TEST!:", result);
+
     return result;
   } catch (error) {
     console.log(error);
@@ -89,10 +89,14 @@ export const postGames = async (
 };
 
 export const getMyShoppingCart = async () => {
+  // if (!token) {
+  //   return;
+  // }
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
   let response;
   try {
+    console.log(token);
     if (token) {
       response = await fetch(`${BASE_URL}/cart`, {
         method: "GET",

@@ -48,7 +48,7 @@ async function buildTables() {
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY,
       "shopperId" INTEGER REFERENCES users(id),
-      "orderTotal" INTEGER,
+      "gamesId" INTEGER REFERENCES games(id),
       quantity INTEGER,
       created_at TIMESTAMP
     );
@@ -259,7 +259,7 @@ async function createInitialCart() {
     console.log("user", user);
 
     const shoppingCartToCreate = [
-      { id: 1, shopperId: user.id, orderTotal: 99999, quantity: 2 },
+      { id: 1, gamesId: 1, shopperId: user.id, orderTotal: 99999, quantity: 2 },
     ];
     const shoppingCarts = await Promise.all(
       shoppingCartToCreate.map((shoppingCart) =>

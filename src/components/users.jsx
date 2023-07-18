@@ -12,7 +12,7 @@ const Users = () => {
       const response = await fetch(`${BASE_URL}/users/all`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: `Bearer ${token}`,
         },
       });
       const result = await response.json();
@@ -68,13 +68,18 @@ const Users = () => {
   return (
     <div className="justify-center">
       {" "}
-      <h1>USERS</h1>
       <div className="flex flex-wrap">
-        {users.map((user) => (
+        {users.map((user, i) => (
           <div
             className="card card-compact w-96 bg-base-100 shadow-xl"
             key={user.id}
           >
+            {i === 0 && (
+              <>
+                <h1>USERS</h1>
+                <br />
+              </>
+            )}
             <div>{user.username}</div>
             <div>{user.email}</div>
             <div>{user.is_admin}</div>
