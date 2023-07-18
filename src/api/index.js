@@ -93,6 +93,7 @@ export const getMyShoppingCart = async () => {
   const username = localStorage.getItem("username");
   let response;
   try {
+    console.log(token);
     if (token) {
       response = await fetch(`${BASE_URL}/cart`, {
         method: "GET",

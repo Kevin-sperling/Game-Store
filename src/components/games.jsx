@@ -148,18 +148,34 @@ const Games = (props) => {
 
   const handleAddToCart = async (event, games) => {
     event.preventDefault();
-    let userId = window.localStorage.getItem("userId");
-    console.log("userId:", userId);
+
+    try {
+      const response = await fetch(`${BASE_URL}/cart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ quantity: 1, price: games.price }),
+      });
+      const result = await response.json();
+
+      console.log(result, "add success");
+    } catch (err) {
+      console.error(err);
+    }
+
     const myShoppingCart = await getMyShoppingCart();
     console.log("myShoppingCart:", myShoppingCart);
 
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
       alert("added to cart");
-    } else {
       handleAddToCart();
+    } else {
+      alert("there was a problem adding this item to the cart");
     }
 
-    const newShoppingCart = [...shoppingCart, ...myShoppingCart, games];
+    const newShoppingCart = [...myShoppingCart, games];
     setShoppingCart(newShoppingCart);
     localStorage.setItem("cart", JSON.stringify(newShoppingCart));
   };
@@ -226,7 +242,7 @@ const Games = (props) => {
       <div className="flex flex-wrap justify-evenly mt-8">
         {games.map((game) => (
           <div
-            className="card card-compact w-96 bg-base-100 shadow-xl flex flex-col items-center my-4 mx-2 hover:bg-base-200 transition-colors h-52"
+            className="card card-compact w-96 bg-base-100 shadow-xl flex flex-col items-center my-4 mx-2 hover:bg-base-200 transition-colors "
             key={game?.id}
           >
             <div>

@@ -58,7 +58,13 @@ const App = () => {
       <Navbar />
 
       <Routes>
-        <Route exact path="/" element={<Games />} />
+        <Route
+          exact
+          path="/"
+          element={
+            <Games isLoggedIn={isLoggedIn} setShoppingCart={setShoppingCart} />
+          }
+        />
         <Route exact path="/game/:id" element={<SingleGameView />} />
         <Route exact path="/register" element={<Register />} />
         <Route />

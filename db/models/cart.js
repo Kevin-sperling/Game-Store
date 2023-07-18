@@ -21,13 +21,13 @@ async function createShoppingCart({ shopperId, orderTotal, quantity }) {
 
 const getShoppingCart = async (cartId) => {
   try {
-    const { rows: products } = await client.query(`
-      SELECT product_cart.* FROM product_cart 
-      JOIN products ON product_cart."productId" = products.id
-      WHERE product_cart."cartId" = ${cartId}
+    const { rows: games } = await client.query(`
+      SELECT games_cart.* FROM games_cart 
+      JOIN games ON games_cart."productId" = games.id
+      WHERE games_cart."cartId" = ${cartId}
       `);
 
-    return products;
+    return games;
   } catch (error) {
     throw error;
   }
@@ -36,15 +36,15 @@ const getShoppingCart = async (cartId) => {
 const getCartByShopperId = async () => {
   try {
     const { rows: cart } = await client.query(`
-      SELECT cart."shopperId" as "cartId", product_cart.*
-      FROM product_cart
+      SELECT cart."shopperId" as "cartId", games_cart.*
+      FROM games_cart
       JOIN cart
-      ON product_cart."cartId" = cart."shopperId"
+      ON games_cart."cartId" = cart."shopperId"
       `);
 
-    const userCartWithProducts = await attachProductsToProductCart(cart);
+    const userCartWithGames = await attachProductsToProductCart(cart);
 
-    return userCartWithProducts;
+    return userCartWithGames;
   } catch (error) {
     throw error;
   }
@@ -100,7 +100,7 @@ async function updateCart({ id, orderTotal, quantity }) {
       rows: [newShoppingCart],
     } = await client.query(
       `
-       UPDATE products
+       UPDATE games
        SET ${setString}
        WHERE id=${fields.id}
        RETURNING *;
@@ -155,8 +155,8 @@ async function addGameToCart({ userId, gameId, quantity }) {
       rows: [game],
     } = await client.query(
       `
-        INSERT INTO cart (user_id, product_id, quantity, price, created_at)
-        VALUES ($1, $2, $3, (SELECT price FROM games WHERE id = $2), CURRENT_TIMESTAMP)
+        INSERT INTO cart (user_id, quantity, price, created_at)
+        VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
         RETURNING *;
       `,
       [userId, gameId, quantity]
