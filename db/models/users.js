@@ -91,7 +91,7 @@ async function getUserById(userId) {
 
 async function getUserByName(username) {
   const result = await client.query(
-    `SELECT password, username, is_admin, id FROM users where username = $1 LIMIT 1;`,
+    `SELECT password, username, is_admin FROM users where username = $1 LIMIT 1;`,
     [username]
   );
 
