@@ -10,11 +10,11 @@ import {
 import "../style/games.css";
 
 const Games = (props) => {
-  const { isLoggedIn, setIsLoggedIn, shoppingCart, setShoppingCart } = props;
+  const { isLoggedIn, shoppingCart, setShoppingCart, games, setGames } = props;
 
   const username = window.localStorage.getItem("username");
 
-  const [games, setGames] = useState([]);
+  // const [games, setGames] = useState([]);
   const [userId, setUserId] = useState("");
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
@@ -24,21 +24,21 @@ const Games = (props) => {
   const [image, setImage] = useState("");
   const [user, setUser] = useState({});
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/games`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/games`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      const result = await response.json();
+  //     const result = await response.json();
 
-      setGames(result);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //     setGames(result);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   // const getCart = async () => {
   //   console.log("userId:", userId);
@@ -246,11 +246,7 @@ const Games = (props) => {
             key={game?.id}
           >
             <div>
-              <img
-                src={game?.image_path}
-                alt={game?.title}
-                className="game-image object-cover h-full w-full"
-              />
+              <img src={game?.image_path} alt={game?.title} className="" />
             </div>
             <h2 className="text-white text-xl font-bold mb-2 text-center">
               {game.title}

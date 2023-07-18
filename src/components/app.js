@@ -4,6 +4,7 @@ import { BASE_URL } from "../api";
 
 import Navbar from "./navbar";
 import Users from "./users";
+import Admin from "./admin";
 import Games from "./games";
 import Home from "./home";
 import Login from "./login";
@@ -16,23 +17,24 @@ import Footer from "./footer";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUsername, setLoggedInUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [shoppingCart, setShoppingCart] = useState([]);
   const [games, setGames] = useState([]);
-
   const [userId, setUserId] = useState("");
 
-  // const setIsLoggedIn = (isLoggedIn) => {
-  //   setIsUserLoggedIn(isLoggedIn);
-  // };
+  const checkToken = async () => {
+    const token = window.localStorage.getItem("token");
+    if (!token) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+    }
+  };
 
-  console.log("userId", userId);
+  // setUsername(window.localStorage.getItem("username"));
 
-  const username = window.localStorage.getItem("username");
-  const id = window.localStorage.setItem(userId, "id");
-  console.log("id", id);
-
-  const fetchUserId = async () => {
+  const getUserId = async () => {
     try {
       const response = await fetch(`${BASE_URL}/users/${username}`, {
         headers: {
@@ -50,9 +52,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchUserId();
+    checkToken();
+    getUserId();
   }, []);
 
+  console.log("userId", userId);
   return (
     <div>
       <Navbar />
@@ -62,12 +66,17 @@ const App = () => {
           exact
           path="/"
           element={
-            <Games isLoggedIn={isLoggedIn} setShoppingCart={setShoppingCart} />
+            <Games
+              games={games}
+              setGames={setGames}
+              shoppingCart={shoppingCart}
+              setShoppingCart={setShoppingCart}
+            />
           }
         />
         <Route exact path="/game/:id" element={<SingleGameView />} />
         <Route exact path="/register" element={<Register />} />
-        <Route />
+        <Route exact path="/admin" element={<Admin />} />
         <Route
           exact
           path="/login"
@@ -76,6 +85,9 @@ const App = () => {
               setIsLoggedIn={setIsLoggedIn}
               isLoggedIn={isLoggedIn}
               setUser={setUser}
+              user={user}
+              username={username}
+              setUsername={setUsername}
             />
           }
         />
@@ -84,11 +96,8 @@ const App = () => {
           path="/cart"
           element={
             <Cart
-              userId={userId}
               shoppingCart={shoppingCart}
               setShoppingCart={setShoppingCart}
-              games={games}
-              setGames={setGames}
             />
           }
         />

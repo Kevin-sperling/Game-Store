@@ -156,4 +156,14 @@ usersRouter.get("/:username", async (req, res, next) => {
   }
 });
 
+usersRouter.get("/admin", isAuthed, isAdmin, async (req, res, next) => {
+  try {
+    const users = await getAllUsers();
+
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+});
+
 module.exports = usersRouter;

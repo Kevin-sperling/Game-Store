@@ -44,28 +44,28 @@ async function getUserByUsername(username) {
     throw error;
   }
 }
-async function getUserById(userId) {
-  try {
-    const {
-      rows: [user],
-    } = await client.query(
-      `
-    SELECT *
-    FROM users
-    WHERE id=$1
-    `,
-      [userId]
-    );
+// async function getUserById(userId) {
+//   try {
+//     const {
+//       rows: [user],
+//     } = await client.query(
+//       `
+//     SELECT *
+//     FROM users
+//     WHERE id=$1
+//     `,
+//       [userId]
+//     );
 
-    if (user) {
-      delete user.password;
-    }
+//     if (user) {
+//       delete user.password;
+//     }
 
-    return user;
-  } catch (error) {
-    throw error;
-  }
-}
+//     return user;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 async function getUserById(userId) {
   try {
     const {

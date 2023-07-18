@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { BASE_URL, loginUser } from "../api";
+import { loginUser } from "../api";
 import jwt_decode from "jwt-decode";
 
 const Login = (props) => {
@@ -19,9 +19,9 @@ const Login = (props) => {
       console.log("Login successful", data);
       window.localStorage.setItem("token", data.token);
       window.localStorage.setItem("username", data.user.username);
+      window.localStorage.setItem("userId", data.user.id);
       const decoded = jwt_decode(data.token);
-      console.log(decoded, "decoded");
-
+      setUsername(data.user.username);
       setIsLoggedIn(true);
       navigate("/");
     } else {
