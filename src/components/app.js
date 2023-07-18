@@ -34,15 +34,13 @@ const App = () => {
 
   console.log("userId", userId);
 
-
   useEffect(() => {
     checkToken();
-    fetchUserId();
+    getUserId();
   }, []);
 
   // setUsername(localStorage.getItem("username"));
   console.log("username ===", username);
-
 
   const getUserId = async () => {
     try {
@@ -65,9 +63,7 @@ const App = () => {
     }
   };
 
-
   console.log("userId", userId);
-
 
   useEffect(() => {
     checkToken();
@@ -124,12 +120,7 @@ const App = () => {
         <Route
           exact
           path="/checkout"
-          element={
-            <Checkout
-              user={user}
-              setUser={setUser}
-            />
-          }
+          element={<Checkout user={user} setUser={setUser} />}
         />
       </Routes>
       <Footer />
