@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../style/navbar.css";
 
 const Navbar = () => {
-  const token = window.localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const Navigate = useNavigate();
 
   return (
@@ -51,8 +51,7 @@ const Navbar = () => {
           <a
             className="btn btn-ghost normal-case hover:text-white active:text-red-600 text-base"
             onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.removeItem("username");
+              localStorage.clear();
               Navigate("/");
               window.location.reload();
             }}

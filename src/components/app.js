@@ -32,7 +32,7 @@ const App = () => {
     }
   };
 
-  // setUsername(window.localStorage.getItem("username"));
+  console.log("userId", userId);
 
   const getUserId = async () => {
     try {
@@ -42,10 +42,13 @@ const App = () => {
         },
       });
       const result = await response.json();
+      console.log("result ===", result);
+      if (result && result.id) {
+        setUserId(result.id);
+        await localStorage.setItem("id", result.id);
+      }
 
-      setUserId(result.id);
-
-      console.log("result.id", result.id);
+      // console.log("result.id", result.id);
     } catch (err) {
       console.error(err);
     }

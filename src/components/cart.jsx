@@ -23,7 +23,7 @@ const Cart = (props) => {
     })();
   }, []);
 
-  const username = window.localStorage.getItem("username");
+  const username = localStorage.getItem("username");
 
   console.log("shoppingCart from cart.jsx:", shoppingCart);
 
@@ -31,7 +31,7 @@ const Cart = (props) => {
   // console.log("games:", games);
   // // const [userId, setUserId] = useState('');
 
-  // const username = window.localStorage.getItem("username");
+  // const username = localStorage.getItem("username");
 
   // const fetchCart = async () => {
   //   try {

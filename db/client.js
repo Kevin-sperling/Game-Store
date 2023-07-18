@@ -17,7 +17,7 @@ if (process.env.CI) {
     port: 5432,
     user: "postgres",
     password: "123",
-    database: "postgres",
+    database: DB_NAME,
   });
 } else {
   // local / heroku client config

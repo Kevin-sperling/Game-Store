@@ -17,9 +17,9 @@ const Login = (props) => {
     const data = await loginUser(username, password);
     if (data && data.token) {
       console.log("Login successful", data);
-      window.localStorage.setItem("token", data.token);
-      window.localStorage.setItem("username", data.user.username);
-      window.localStorage.setItem("userId", data.user.id);
+      await localStorage.setItem("token", data.token);
+      await localStorage.setItem("username", data.user.username);
+      await localStorage.setItem("is_admin", data.user.is_admin);
       const decoded = jwt_decode(data.token);
       setUsername(data.user.username);
       setIsLoggedIn(true);

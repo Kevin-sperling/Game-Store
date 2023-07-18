@@ -12,7 +12,7 @@ import "../style/games.css";
 const Games = (props) => {
   const { isLoggedIn, shoppingCart, setShoppingCart, games, setGames } = props;
 
-  const username = window.localStorage.getItem("username");
+  const username = localStorage.getItem("username");
   const token = window.localStorage.getItem("token");
 
   // const [games, setGames] = useState([]);
@@ -23,7 +23,7 @@ const Games = (props) => {
   const [platform, setPlatform] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [image, setImage] = useState("");
-  const [user, setUser] = useState({});
+  const [is_admin, setIsAdmin] = useState(false);
 
   // const fetchData = async () => {
   //   try {
@@ -75,7 +75,11 @@ const Games = (props) => {
   // };
 
   useEffect(() => {
-    // fetchData();
+    const userData = localStorage.getItem("is_admin");
+    console.log("is_admin ===", userData);
+    if (userData !== null && userData !== undefined) {
+      setIsAdmin(userData);
+    }
 
     (async () => {
       let games = await getAllGames();
@@ -149,29 +153,10 @@ const Games = (props) => {
 
   const handleAddToCart = async (event, games) => {
     event.preventDefault();
-
-    try {
-      const response = await fetch(`${BASE_URL}/cart`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          gamesId: games.id,
-          quantity: 1,
-          price: games.price,
-        }),
-      });
-      const result = await response.json();
-
-      console.log(result, "add success");
-    } catch (err) {
-      console.error(err);
-    }
-
+    let userId = await localStorage.getItem("userId");
+    console.log("userId ===", userId);
     const myShoppingCart = await getMyShoppingCart();
-    console.log("myShoppingCart:", myShoppingCart);
+    console.log("myShoppingCart ===", myShoppingCart);
 
     // if (isLoggedIn) {
     //   alert("added to cart");
@@ -187,63 +172,65 @@ const Games = (props) => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-evenly">
-        <div className="addGame">Post A Game</div>
-        <input
-          type="text"
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
-          placeholder="title"
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
-          placeholder="genre"
-          onChange={(e) => {
-            setGenre(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
-          placeholder="release_date"
-          onChange={(e) => {
-            setReleaseDate(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
-          placeholder="price"
-          onChange={(e) => {
-            setPrice(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
-          placeholder="image_path"
-          onChange={(e) => {
-            setImage(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
-          placeholder="platform"
-          onChange={(e) => {
-            setPlatform(e.target.value);
-          }}
-        />
-        <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-sm hover:bg-blue-600 transition-colors"
-          onClick={addGame}
-        >
-          Add Game
-        </button>
-      </div>
+      {is_admin === 'true' && (
+        <div className="flex flex-wrap justify-evenly">
+          <div className="addGame">Post A Game</div>
+          <input
+            type="text"
+            className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            placeholder="title"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            placeholder="genre"
+            onChange={(e) => {
+              setGenre(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            placeholder="release_date"
+            onChange={(e) => {
+              setReleaseDate(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            placeholder="price"
+            onChange={(e) => {
+              setPrice(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            placeholder="image_path"
+            onChange={(e) => {
+              setImage(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            className="px-4 py-2 mb-4 bg-gray-800 text-white rounded"
+            placeholder="platform"
+            onChange={(e) => {
+              setPlatform(e.target.value);
+            }}
+          />
+          <button
+            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-sm hover:bg-blue-600 transition-colors"
+            onClick={addGame}
+          >
+            Add Game
+          </button>
+        </div>
+      )}
       <div className="flex flex-wrap justify-evenly mt-8">
         {games.map((game) => (
           <div
@@ -251,7 +238,11 @@ const Games = (props) => {
             key={game?.id}
           >
             <div>
-              <img src={game?.image_path} alt={game?.title} className="" />
+              <img
+                src={game?.image_path}
+                alt={game?.title}
+                className="object-cover h-full w-full game-image "
+              />
             </div>
             <h2 className="text-white text-xl font-bold mb-2 text-center">
               {game.title}
@@ -278,7 +269,8 @@ const Games = (props) => {
             >
               Add to Cart
             </button>
-            <button
+            {is_admin === 'true' && (
+              <button
               className="game-image-frame mb-2"
               onClick={() => {
                 deleteGame(game?.id);
@@ -286,6 +278,7 @@ const Games = (props) => {
             >
               Delete
             </button>
+            )}
           </div>
         ))}
       </div>

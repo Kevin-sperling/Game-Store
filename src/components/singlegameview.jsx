@@ -6,7 +6,7 @@ const SingleGameView = () => {
   const [userId, setUserId] = useState("");
   const navigate = useNavigate();
   const game = JSON.parse(localStorage.getItem("game")) || {};
-  const username = window.localStorage.getItem("username");
+  const username = localStorage.getItem("username");
 
   const fetchUserId = async () => {
     try {

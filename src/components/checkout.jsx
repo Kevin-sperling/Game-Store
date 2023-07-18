@@ -26,7 +26,7 @@ const Checkout = (props) => {
 
   useEffect(() => {
     (async () => {
-      const username = window.localStorage.getItem("username");
+      const username = await localStorage.getItem("username");
       console.log("username:", username);
     })();
   }, []);

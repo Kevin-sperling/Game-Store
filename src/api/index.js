@@ -5,6 +5,7 @@ export const BASE_URL =
 
 export const loginUser = async (username, password) => {
   try {
+    console.log("BASE_URL ===", BASE_URL);
     const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
       headers: {

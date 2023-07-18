@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../api";
 const Users = () => {
   const [users, setUsers] = useState([]);
-  const token = window.localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const fetchData = async () => {
     if (!token) {
