@@ -10,11 +10,11 @@ import {
 import "../style/games.css";
 
 const Games = (props) => {
-  const { isLoggedIn, setIsLoggedIn, shoppingCart, setShoppingCart } = props;
+  const { isLoggedIn, shoppingCart, setShoppingCart, games, setGames } = props;
 
   const username = window.localStorage.getItem("username");
 
-  const [games, setGames] = useState([]);
+  // const [games, setGames] = useState([]);
   const [userId, setUserId] = useState("");
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
@@ -242,7 +242,7 @@ const Games = (props) => {
       <div className="flex flex-wrap justify-evenly mt-8">
         {games.map((game) => (
           <div
-            className="card card-compact w-96 bg-base-100 shadow-xl flex flex-col items-center my-4 mx-2 hover:bg-base-200 transition-colors "
+            className="card card-compact w-96 bg-base-100 shadow-xl "
             key={game?.id}
           >
             <div>
