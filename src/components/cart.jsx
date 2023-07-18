@@ -18,14 +18,14 @@ const Cart = (props) => {
       if (!newCart.length) {
         newCart = JSON.parse(localStorage.getItem("cart"));
       }
-      console.log(shoppingCart);
+      console.log("from useEffect", shoppingCart);
       setShoppingCart(newCart);
     })();
   }, []);
 
   const username = window.localStorage.getItem("username");
 
-  console.log("shoppingCart:", shoppingCart);
+  console.log("shoppingCart from cart.jsx:", shoppingCart);
 
   // const [games, setGames] = useState([]);
   // console.log("games:", games);

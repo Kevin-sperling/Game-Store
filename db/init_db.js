@@ -49,6 +49,7 @@ async function buildTables() {
       id SERIAL PRIMARY KEY,
       "shopperId" INTEGER REFERENCES users(id),
       "gamesId" INTEGER REFERENCES games(id),
+      price DECIMAL(10, 2),
       quantity INTEGER,
       created_at TIMESTAMP
     );

@@ -13,6 +13,7 @@ const Games = (props) => {
   const { isLoggedIn, shoppingCart, setShoppingCart, games, setGames } = props;
 
   const username = window.localStorage.getItem("username");
+  const token = window.localStorage.getItem("token");
 
   // const [games, setGames] = useState([]);
   const [userId, setUserId] = useState("");
@@ -154,9 +155,13 @@ const Games = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ quantity: 1, price: games.price }),
+        body: JSON.stringify({
+          gamesId: games.id,
+          quantity: 1,
+          price: games.price,
+        }),
       });
       const result = await response.json();
 
@@ -168,16 +173,16 @@ const Games = (props) => {
     const myShoppingCart = await getMyShoppingCart();
     console.log("myShoppingCart:", myShoppingCart);
 
-    if (isLoggedIn) {
-      alert("added to cart");
-      handleAddToCart();
-    } else {
-      alert("there was a problem adding this item to the cart");
-    }
+    // if (isLoggedIn) {
+    //   alert("added to cart");
+    //   handleAddToCart();
+    // } else {
+    //   alert("there was a problem adding this item to the cart");
+    // }
 
     const newShoppingCart = [...myShoppingCart, games];
     setShoppingCart(newShoppingCart);
-    localStorage.setItem("cart", JSON.stringify(newShoppingCart));
+    // localStorage.setItem("cart", JSON.stringify(newShoppingCart));
   };
 
   return (

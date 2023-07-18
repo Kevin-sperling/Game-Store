@@ -1,16 +1,16 @@
 const client = require("../client");
 
-async function createShoppingCart({ shopperId, orderTotal, quantity }) {
+async function createShoppingCart({ shopperId, quantity, gamesId }) {
   try {
     const {
       rows: [cart],
     } = await client.query(
       `
-        INSERT INTO cart ("shopperId", "orderTotal", quantity)
+        INSERT INTO cart ("shopperId", quantity, "gamesId")
         VALUES ($1, $2, $3)
         RETURNING *;
     `,
-      [shopperId, orderTotal, quantity]
+      [shopperId, quantity, gamesId]
     );
 
     return cart;
@@ -22,7 +22,7 @@ async function createShoppingCart({ shopperId, orderTotal, quantity }) {
 const getShoppingCart = async (cartId) => {
   try {
     const { rows: games } = await client.query(`
-      SELECT games_cart.* FROM games_cart 
+      SELECT games_cart.*, games.* FROM games_cart 
       JOIN games ON games_cart."productId" = games.id
       WHERE games_cart."cartId" = ${cartId}
       `);
@@ -149,17 +149,17 @@ const destroyShoppingCartItem = async (id) => {
   }
 };
 
-async function addGameToCart({ userId, gameId, quantity }) {
+async function addGameToCart({ shopperId, gameId, quantity, price }) {
   try {
     const {
       rows: [game],
     } = await client.query(
       `
-        INSERT INTO cart (user_id, quantity, price, created_at)
-        VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
+        INSERT INTO cart ("shopperId", "gamesId", quantity, price, created_at)
+        VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP)
         RETURNING *;
       `,
-      [userId, gameId, quantity]
+      [shopperId, gameId, quantity, price]
     );
 
     return game;
