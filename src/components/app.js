@@ -67,6 +67,7 @@ const App = () => {
           path="/"
           element={
             <Games
+              isLoggedIn={isLoggedIn}
               games={games}
               setGames={setGames}
               shoppingCart={shoppingCart}

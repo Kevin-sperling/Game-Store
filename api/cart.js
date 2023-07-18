@@ -36,14 +36,15 @@ cartRouter.post("/", requireUser, async (req, res, next) => {
   try {
     const shopperId = req.user.id;
 
-    const { orderTotal, quantity } = req.body;
+    const { price, quantity, gamesId } = req.body;
     const shoppingCart = await addGameToCart({
       shopperId,
-      orderTotal,
+      gamesId,
       quantity,
+      price,
     });
     console.log(shoppingCart);
-    return res.send(shoppingCart);
+    res.send(shoppingCart);
   } catch (error) {
     return next(error);
   }
