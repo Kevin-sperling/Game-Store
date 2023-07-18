@@ -34,7 +34,7 @@ const App = () => {
 
   console.log("userId", userId);
 
-  const username = localStorage.getItem("username");
+  setUsername(localStorage.getItem("username"));
   console.log("username ===", username);
 
   const fetchUserId = async () => {
@@ -62,7 +62,7 @@ const App = () => {
     getUserId();
   }, []);
 
-  console.log("userId", userId);
+  // console.log("userId", userId);
   return (
     <div>
       <Navbar />
