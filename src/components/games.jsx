@@ -10,11 +10,11 @@ import {
 import "../style/games.css";
 
 const Games = (props) => {
-  const { isLoggedIn, shoppingCart, setShoppingCart, games, setGames } = props;
+  const { isLoggedIn, setIsLoggedIn, shoppingCart, setShoppingCart } = props;
 
   const username = window.localStorage.getItem("username");
 
-  // const [games, setGames] = useState([]);
+  const [games, setGames] = useState([]);
   const [userId, setUserId] = useState("");
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
