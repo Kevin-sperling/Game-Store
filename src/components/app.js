@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { BASE_URL } from "../api";
 
@@ -34,12 +34,22 @@ const App = () => {
 
   console.log("userId", userId);
 
+
+  useEffect(() => {
+    checkToken();
+    fetchUserId();
+  }, []);
+
   // setUsername(localStorage.getItem("username"));
   console.log("username ===", username);
 
+
   const getUserId = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/users/${username}`, {
+      const storedUsername = localStorage.getItem("username");
+      console.log("storedUsername ===", storedUsername);
+
+      const response = await fetch(`${BASE_URL}/users/${storedUsername}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -50,12 +60,14 @@ const App = () => {
         setUserId(result.id);
         await localStorage.setItem("id", result.id);
       }
-
-      // console.log("result.id", result.id);
     } catch (err) {
       console.error(err);
     }
   };
+
+
+  console.log("userId", userId);
+
 
   useEffect(() => {
     checkToken();
@@ -63,6 +75,7 @@ const App = () => {
   }, []);
 
   // console.log("userId", userId);
+
   return (
     <div>
       <Navbar />
@@ -115,17 +128,9 @@ const App = () => {
             <Checkout
               user={user}
               setUser={setUser}
-              // shoppingCart={shoppingCart}
-              // setShoppingCart={setShoppingCart}
             />
           }
         />
-        {/* <Route exact path="/register" element={(props) => (
-            <Register {...props} isLoggedIn={isUserLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
-        )} /> */}
-        {/* <Route path="/login" element={(props) => (
-            <LoginPage {...props} setIsLoggedIn={setIsLoggedIn}/>
-        )} /> */}
       </Routes>
       <Footer />
     </div>
