@@ -10,6 +10,7 @@ import {
 const Cart = (props) => {
   const { shoppingCart, setShoppingCart } = props;
   const { games, setGames } = props;
+  const { newCart, setNewCart } = useState([]);
 
   useEffect(() => {
     (async () => {

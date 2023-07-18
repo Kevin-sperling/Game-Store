@@ -62,7 +62,7 @@ const App = () => {
     getUserId();
   }, []);
 
-  console.log("userId", userId);
+  // console.log("userId", userId);
   return (
     <div>
       <Navbar />
