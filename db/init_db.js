@@ -25,7 +25,7 @@ async function dropTables() {
 }
 
 async function buildTables() {
-  client.connect();
+  // client.connect();
   try {
     // drop tables in correct order
     await client.query(`
@@ -230,17 +230,17 @@ const usersToCreate = [
   },
 ];
 
-// async function createInitialUsers() {
-//   try {
-//     console.log("creating initial users");
-//     const users = await Promise.all(usersToCreate.map(createUser));
-//     console.log("Users created:", users);
-//     console.log("Finished creating users!");
-//   } catch (error) {
-//     console.error("Error creating users!");
-//     throw error;
-//   }
-// }
+async function createInitialUsers() {
+  try {
+    console.log("creating initial users");
+    const users = await Promise.all(usersToCreate.map(createUser));
+    console.log("Users created:", users);
+    console.log("Finished creating users!");
+  } catch (error) {
+    console.error("Error creating users!");
+    throw error;
+  }
+}
 
 async function createInitialGames() {
   try {
@@ -256,41 +256,41 @@ async function createInitialGames() {
   }
 }
 
-// async function createInitialCart() {
-//   try {
-//     console.log("creating initial cart");
-//     const user = await getUserByUsername(usersToCreate[0].username);
-//     console.log("user", user);
+async function createInitialCart() {
+  try {
+    console.log("creating initial cart");
+    const user = await getUserByUsername(usersToCreate[0].username);
+    console.log("user", user);
 
-//     const shoppingCartToCreate = [
-//       { id: 1, gamesId: 1, shopperId: user.id, orderTotal: 99999, quantity: 2 },
-//     ];
-//     const shoppingCarts = await Promise.all(
-//       shoppingCartToCreate.map((shoppingCart) =>
-//         createShoppingCart(shoppingCart)
-//       )
-//     );
-//     console.log("Shopping Cart Created:", shoppingCarts);
+    const shoppingCartToCreate = [
+      { id: 1, gamesId: 1, shopperId: user.id, orderTotal: 99999, quantity: 2 },
+    ];
+    const shoppingCarts = await Promise.all(
+      shoppingCartToCreate.map((shoppingCart) =>
+        createShoppingCart(shoppingCart)
+      )
+    );
+    console.log("Shopping Cart Created:", shoppingCarts);
 
-//     const gamesOnShoppingCartToCreate = [
-//       { productId: 1, cartId: shoppingCarts[0].id },
-//     ];
-//     const gamesOnCart = await Promise.all(
-//       gamesOnShoppingCartToCreate.map((gamesCart) => createGamesCart(gamesCart))
-//     );
-//     console.log("products on cart ===>", gamesOnCart);
-//     console.log("Finished creating shopping carts");
-//   } catch (error) {
-//     console.error("Error creating shopping carts!");
-//     throw error;
-//   }
-// }
+    const gamesOnShoppingCartToCreate = [
+      { productId: 1, cartId: shoppingCarts[0].id },
+    ];
+    const gamesOnCart = await Promise.all(
+      gamesOnShoppingCartToCreate.map((gamesCart) => createGamesCart(gamesCart))
+    );
+    console.log("products on cart ===>", gamesOnCart);
+    console.log("Finished creating shopping carts");
+  } catch (error) {
+    console.error("Error creating shopping carts!");
+    throw error;
+  }
+}
 
 async function rebuildDB() {
   try {
     //await client.connect();
     await dropTables();
-    // await buildTables();
+    await buildTables();
   } catch (error) {
     throw error;
   }
@@ -298,9 +298,9 @@ async function rebuildDB() {
 
 async function populateInitialData() {
   try {
-    // await createInitialUsers();
+    await createInitialUsers();
     await createInitialGames();
-    // await createInitialCart();
+    await createInitialCart();
   } catch (error) {
     throw error;
   }
