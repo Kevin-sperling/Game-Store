@@ -57,8 +57,12 @@ gamesRouter.post("/", isAuthed, isAdmin, async (req, res, next) => {
 gamesRouter.delete("/:gameId", isAuthed, isAdmin, async (req, res, next) => {
   const { gameId } = req.params;
 
+  console.log("reached");
+
   try {
     const deletedGame = await deleteGame(gameId);
+
+    console.log(deletedGame, "deleted");
 
     res.send(deletedGame);
   } catch (error) {
