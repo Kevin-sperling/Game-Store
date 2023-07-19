@@ -64,7 +64,7 @@ const SingleGameView = () => {
             <div className="text-white">Available on: {game.platform}</div>
             <div className="text-white">${game.price}</div>
             <button
-              className="mt-6 px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600"
+              className="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition-colors"
               onClick={() => handleAddToCart(game.id)}
             >
               Add to Cart
