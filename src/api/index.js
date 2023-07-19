@@ -53,6 +53,7 @@ export const getAllGames = async () => {
   try {
     const response = await fetch(`${BASE_URL}/games`);
     const result = await response.json();
+
     return result;
   } catch (error) {
     console.log(error);

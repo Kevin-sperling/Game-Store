@@ -1,5 +1,5 @@
 // This is the Web Server
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const server = express();
 
@@ -10,7 +10,7 @@ server.use(cors());
 
 // create logs for everything
 const morgan = require("morgan");
-server.use(morgan("dev")); 
+server.use(morgan("dev"));
 
 // handle application/json requests
 server.use(express.json());
@@ -28,7 +28,7 @@ server.use((req, res, next) => {
 });
 
 // bring in the DB connection
-const { client } = require("./db");
+const { client } = require("./db/index");
 
 // use port 4000 unless there exists a preconfigured port
 const PORT = process.env.PORT || 4000;
@@ -39,10 +39,9 @@ server.listen(PORT, async () => {
 
   try {
     await client.connect();
+
     console.log("Database is open for business!");
   } catch (error) {
     console.error("Database is closed for repairs!\n", error);
-  } 
+  }
 });
-
- 

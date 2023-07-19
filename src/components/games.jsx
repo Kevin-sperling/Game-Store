@@ -24,21 +24,25 @@ const Games = (props) => {
   const [image, setImage] = useState("");
   const [is_admin, setIsAdmin] = useState(false);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch(`${BASE_URL}/games`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
 
-  //     const result = await response.json();
+  
+  
 
-  //     setGames(result);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/games`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await response.json();
+
+      setGames(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // const getCart = async () => {
   //   console.log("userId:", userId);
@@ -74,6 +78,7 @@ const Games = (props) => {
   // };
 
   useEffect(() => {
+   
     const userData = localStorage.getItem("is_admin");
     console.log("is_admin ===", userData);
     if (userData !== null && userData !== undefined) {
@@ -94,6 +99,7 @@ const Games = (props) => {
   };
 
   const deleteGame = async (gameId) => {
+    console.log( "delete start");
     try {
       const response = await fetch(`${BASE_URL}/games/${gameId}`, {
         method: "DELETE",

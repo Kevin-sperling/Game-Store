@@ -6,6 +6,8 @@ module.exports = {
   ...require("./users"),
   ...require("./games"),
   ...require("./cart"),
+  
+  
 };
 
 // then, in your API, you'll require the appropriate model
