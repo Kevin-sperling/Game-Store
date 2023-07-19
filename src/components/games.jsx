@@ -223,8 +223,8 @@ const Games = (props) => {
             }}
           />
           <button
-            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-sm hover:bg-blue-600 transition-colors"
-            onClick={addGame}
+              className="game-image-frame flex justify-center items-center mb-2 w-full bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition-colors"
+              onClick={addGame}
           >
             Add Game
           </button>
@@ -253,7 +253,7 @@ const Games = (props) => {
             {/* <h2 className="">{game?.id}</h2> */}
 
             <button
-              className="game-image-frame mb-2"
+              className="game-image-frame flex justify-center items-center mb-2 w-full bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition-colors"
               onClick={() => {
                 handleSingleView(game);
               }}
@@ -261,7 +261,7 @@ const Games = (props) => {
               See Details
             </button>
             <button
-              className="game-image-frame mb-2"
+              className="game-image-frame flex justify-center items-center mb-2 w-full bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition-colors"
               onClick={(event) => {
                 handleAddToCart(event, game);
               }}
@@ -270,7 +270,7 @@ const Games = (props) => {
             </button>
             {is_admin === "true" && (
               <button
-                className="game-image-frame mb-2"
+              className="game-image-frame flex justify-center items-center mb-2 w-full bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition-colors"
                 onClick={() => {
                   deleteGame(game?.id);
                 }}
