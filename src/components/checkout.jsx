@@ -265,8 +265,8 @@ const Checkout = (props) => {
                 <h2>Price: ${item.price} USD</h2>
                 <h2>Item Tax: ${Math.round(taxRate(item.price))} USD</h2>
                 <h2>
-                  Total: ${Math.round(taxRate(item.price))} + {item.price} ={" "}
-                  {Math.round(taxRate(item.price)) + +item.price}{" "}
+                  Total: ${Math.round(taxRate(item.price))} + ${item.price} = $
+                  {Math.round(taxRate(item.price)) + +item.price} USD{" "}
                 </h2>
                 {/* {cartTotal += item.cost} */}
                 {/* {console.log('cartTotal', cartTotal)} */}
@@ -275,7 +275,9 @@ const Checkout = (props) => {
           })}
         </span>
         <button>
-          <Link to="/cart">Back to Cart</Link>
+          <Link to={{ pathname: "/cart", state: shoppingCart }}>
+            Back to Cart
+          </Link>
         </button>
       </form>
 
