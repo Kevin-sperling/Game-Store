@@ -13,6 +13,10 @@ const Checkout = (props) => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
 
+  const [creditCard, setCreditCard] = useState("");
+  const [expirationDate, setExpirationDate] = useState("");
+  const [cvv, setCvv] = useState("");
+
   const {
     user,
     setUser,
@@ -33,18 +37,22 @@ const Checkout = (props) => {
 
   useEffect(() => {
     (async () => {
-      let newCart = await fetchCart();
+      // let newCart = await fetchCart();
 
-      if (!newCart.length) {
-        newCart = JSON.parse(localStorage.getItem("cart"));
-      }
+      // if (!newCart.length) {
+      //   newCart = JSON.parse(localStorage.getItem("cart"));
+      // }
 
       console.log(shoppingCart);
-      setShoppingCart(newCart);
+      setShoppingCart(shoppingCart);
     })();
   }, []);
 
   console.log("outside of useeffect", shoppingCart[0]);
+
+  const taxRate = (price) => {
+    return price * 0.2;
+  };
 
   const handleFirstName = (e) => {
     e.preventDefault();
@@ -84,6 +92,28 @@ const Checkout = (props) => {
   const handleZipCode = (e) => {
     e.preventDefault();
     setZipCode(e.target.value);
+  };
+
+  const handleCreditCardChange = (e) => {
+    e.preventDefault();
+    setCreditCard(e.target.value);
+  };
+
+  const handleCvvChange = (e) => {
+    e.preventDefault();
+    setCvv(e.target.value);
+  };
+
+  const handleExpirationDateChange = (e) => {
+    e.preventDefault();
+    setExpirationDate(e.target.value);
+  };
+
+  const handleCreditCardSubmit = async (e) => {
+    e.preventDefault();
+    setCreditCard("");
+    setCvv("");
+    setExpirationDate("");
   };
 
   const handleSubmit = async (e) => {
@@ -226,16 +256,17 @@ const Checkout = (props) => {
 
         <span>
           {shoppingCart.map((item, index) => {
+            console.log("item", item);
             return (
               <div className="content" key={`${index}, ${item.id}`}>
+                {/* <h2>
+                  {item} {item.}
+                </h2> */}
+                <h2>Price: ${item.price} USD</h2>
+                <h2>Item Tax: ${Math.round(taxRate(item.price))} USD</h2>
                 <h2>
-                  {item.make} {item.model}
-                </h2>
-                <h2>Price: ${item.cost} USD</h2>
-                <h2>Item Tax: ${Math.round(taxRate(item.cost))} USD</h2>
-                <h2>
-                  Total: ${Math.round(taxRate(item.cost))} + {item.cost} ={" "}
-                  {Math.round(taxRate(item.cost)) + item.cost}{" "}
+                  Total: ${Math.round(taxRate(item.price))} + {item.price} ={" "}
+                  {Math.round(taxRate(item.price)) + +item.price}{" "}
                 </h2>
                 {/* {cartTotal += item.cost} */}
                 {/* {console.log('cartTotal', cartTotal)} */}

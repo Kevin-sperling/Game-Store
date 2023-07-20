@@ -14,13 +14,11 @@ const Cart = (props) => {
 
   useEffect(() => {
     (async () => {
-      let newCart = await getMyShoppingCart();
+      // let newCart = await getMyShoppingCart();
+      // console.log(newCart);
 
-      if (!newCart.length) {
-        newCart = JSON.parse(localStorage.getItem("cart"));
-      }
       console.log("from useEffect", shoppingCart);
-      setShoppingCart(newCart);
+      setShoppingCart(shoppingCart);
     })();
   }, []);
 
@@ -95,18 +93,18 @@ const Cart = (props) => {
   return (
     <div>
       <h1>Cart</h1>
-      {shoppingCart.length === 0 ? (
+      {shoppingCart?.length === 0 ? (
         <div>
           <h1>No items have been added to your cart!</h1>
 
           <button>
-            <Link to="/">Check out our games!</Link>
+            <Link to="/">Continue Shopping</Link>
           </button>
         </div>
       ) : (
         <div>
           <h1>Hello, {username} please review the items in your cart</h1>
-          {shoppingCart.map((item, index) => {
+          {shoppingCart?.map((item, index) => {
             return (
               <div className="content" key={`${index}, ${item.id}`}>
                 <h2>
