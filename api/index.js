@@ -5,33 +5,32 @@ const { JWT_SECRET } = process.env;
 
 const { getUserById } = require("../db/models/users");
 
-// router.use(async (req, res, next) => {
-//   const prefix = "Bearer ";
-//   const auth = req.header("Authorization");
-//   if (!auth) {
-//     // nothing to see here
-//     next();
-//   } else if (auth.startsWith(prefix)) {
-//     const token = auth.slice(prefix.length);
-   
+router.use(async (req, res, next) => {
+  const prefix = "Bearer ";
+  const auth = req.header("Authorization");
+  if (!auth) {
+    // nothing to see here
+    next();
+  } else if (auth.startsWith(prefix)) {
+    const token = auth.slice(prefix.length);
 
-//     try {
-//       const { id } = jwt.verify(token, JWT_SECRET);
-//       console.log("jwt data", id);
-//       if (id) {
-//         req.user = await getUserById(id);
-//         next();
-//       }
-//     } catch ({ name, message }) {
-//       next({ name, message });
-//     }
-//   } else {
-//     next({
-//       name: "AuthorizationHeaderError",
-//       message: `Authorization token must start with ${prefix}`,
-//     });
-//   }
-// });
+    try {
+      const { id } = jwt.verify(token, JWT_SECRET);
+      console.log("jwt data", id);
+      if (id) {
+        req.user = await getUserById(id);
+        next();
+      }
+    } catch ({ name, message }) {
+      next({ name, message });
+    }
+  } else {
+    next({
+      name: "AuthorizationHeaderError",
+      message: `Authorization token must start with ${prefix}`,
+    });
+  }
+});
 
 router.get("/health", (req, res, next) => {
   res.send({

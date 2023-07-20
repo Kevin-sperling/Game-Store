@@ -120,7 +120,14 @@ const App = () => {
         <Route
           exact
           path="/checkout"
-          element={<Checkout user={user} setUser={setUser} />}
+          element={
+            <Checkout
+              shoppingCart={shoppingCart}
+              setShoppingCart={setShoppingCart}
+              user={user}
+              setUser={setUser}
+            />
+          }
         />
       </Routes>
       <Footer />
