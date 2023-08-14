@@ -145,3 +145,4 @@ You'll be able to view your fullstack application by running `heroku open`. Bask
 # GameSpace
 # GameSpace
 # Game-Store
+# Game-Store
