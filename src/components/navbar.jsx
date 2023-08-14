@@ -11,8 +11,8 @@ const Navbar = () => {
       <div className="flex-1">
         <Link to="/">
           <div className="logo-container">
-            <span className="game">Game</span>
-            <span className="stahhhp">Stahhhp</span>
+            <span className="game">GameSpace</span>
+            {/* <span className="stahhhp">Stahhhp</span> */}
           </div>
         </Link>
       </div>

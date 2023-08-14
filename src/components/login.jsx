@@ -72,6 +72,8 @@ const Login = (props) => {
             Login
           </button>
         </form>
+
+        <div className="text-white mt-4 text-center">dev note: log in as "administrator" with password "password" for additional site features</div>
         <div className="text-white mt-4 text-center">
           <Link to="/register">
             Don't have an account? <br /> Sign up!

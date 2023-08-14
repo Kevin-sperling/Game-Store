@@ -27,6 +27,7 @@ async function dropTables() {
 async function buildTables() {
   // client.connect();
   try {
+    console.log('building tables');
     // drop tables in correct order
     await client.query(`
     CREATE TABLE users (
@@ -64,8 +65,9 @@ async function buildTables() {
     `);
 
     // build tables in correct order
-  } catch (error) {
-    throw error;
+  } catch (err) {
+    console.log('error building tables');
+
   }
 }
 
